@@ -90,3 +90,34 @@
 .mobileActive { color:var(--green) !important;background:var(--green-dim) !important; }
 
 @media(max-width:900px) { .nav{display:none} .cta{display:none} .hamburger{display:flex} .header{padding:0 20px} }
+.userRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.userAvatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid var(--green-border);
+}
+.userName {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+}
+.logoutBtn {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.logoutBtn:hover {
+  border-color: var(--green-border);
+  color: var(--green-dark);
+}

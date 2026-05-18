@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useAuth } from '../hooks/useAuth'
 import styles from './Header.module.css'
 
 const NAV = [
@@ -11,6 +12,12 @@ const NAV = [
 
 export default function Header({ currentPage, showPage }) {
   const [open, setOpen] = useState(false)
+  const { user, logout } = useAuth()
+
+  const handleLogout = async () => {
+    await logout()
+  }
+
   return (
     <>
       <header className={styles.header}>
@@ -36,7 +43,17 @@ export default function Header({ currentPage, showPage }) {
 
         {/* RIGHT */}
         <div className={styles.navRight}>
-          <button className={styles.cta} onClick={() => showPage('contact')}>Get Free Quote</button>
+          {user ? (
+            <div className={styles.userRow}>
+              <img src={user.photoURL} alt={user.displayName} className={styles.userAvatar} />
+              <span className={styles.userName}>{user.displayName?.split(' ')[0]}</span>
+              <button className={styles.logoutBtn} onClick={handleLogout}>Sign Out</button>
+            </div>
+          ) : (
+            <button className={styles.cta} onClick={() => showPage('login')}>
+              Sign In
+            </button>
+          )}
           <button className={styles.hamburger} onClick={() => setOpen(o => !o)}>
             <span /><span /><span />
           </button>
@@ -53,6 +70,11 @@ export default function Header({ currentPage, showPage }) {
               {n.label}
             </button>
           ))}
+          {user ? (
+            <button onClick={handleLogout}>Sign Out</button>
+          ) : (
+            <button onClick={() => { showPage('login'); setOpen(false) }}>Sign In</button>
+          )}
         </div>
       )}
     </>
