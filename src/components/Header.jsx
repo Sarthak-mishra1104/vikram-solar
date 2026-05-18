@@ -14,15 +14,13 @@ export default function Header({ currentPage, showPage }) {
   return (
     <>
       <header className={styles.header}>
+
         {/* LOGO */}
         <div className={styles.logo} onClick={() => showPage('home')}>
-  <span className={styles.logoText}>Solar<span className={styles.logoAccent}>Sync</span></span>
-</div>
-          <div className={styles.logoText}>
-            <div className={styles.logoName}>vikram<span>solar</span></div>
-            <div className={styles.logoSub}>AI Platform</div>
-          </div>
-        
+          <span className={styles.logoText}>
+            Solar<span className={styles.logoAccent}>Sync</span>
+          </span>
+        </div>
 
         {/* NAV */}
         <nav className={styles.nav}>
@@ -43,6 +41,7 @@ export default function Header({ currentPage, showPage }) {
             <span /><span /><span />
           </button>
         </div>
+
       </header>
 
       {open && (
