@@ -1,0 +1,36 @@
+.pageHeader { padding:56px 40px 32px;max-width:1160px;margin:0 auto; }
+.pageTitle  { font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,3vw,42px);font-weight:700;margin-bottom:10px;letter-spacing:-0.5px; }
+.pageSub    { font-size:14px;color:var(--text-mid);line-height:1.75; }
+
+.layout { display:grid;grid-template-columns:1fr 1fr;max-width:1160px;margin:0 auto;padding:0 40px 80px;gap:28px; }
+.leftCol,.rightCol { background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:32px; }
+.panelHead { font-family:'Space Grotesk',sans-serif;font-size:17px;font-weight:600;margin-bottom:22px;padding-bottom:18px;border-bottom:1px solid var(--border);color:var(--text); }
+
+.quickGrid { display:flex;flex-direction:column;gap:8px;margin-bottom:24px; }
+.quickCard { display:flex;align-items:center;gap:14px;padding:15px;background:var(--surface2);border-radius:9px;cursor:pointer;transition:all 0.2s;border:1px solid transparent; }
+.quickCard:hover { border-color:var(--green-border);background:var(--green-dim); }
+.quickIcon  { width:40px;height:40px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:var(--bg2); }
+.quickTitle { font-size:14px;font-weight:600;margin-bottom:2px;color:var(--text); }
+.quickSub   { font-size:12px;color:var(--muted); }
+
+.certBox { background:var(--surface2);border-radius:9px;padding:18px;margin-bottom:16px;border:1px solid var(--border); }
+.certTitle { font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;font-weight:600;margin-bottom:14px; }
+.certItem  { display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-mid);margin-bottom:10px; }
+.certItem:last-child { margin-bottom:0; }
+
+.faqBox    { background:var(--surface2);border-radius:9px;padding:18px;border:1px solid var(--border); }
+.faqItem   { border-bottom:1px solid var(--border);padding:12px 0; }
+.faqItem:first-child { padding-top:0; }
+.faqItem:last-child  { border-bottom:none;padding-bottom:0; }
+.faqQ { font-size:13px;font-weight:500;margin-bottom:5px;color:var(--text); }
+.faqA { font-size:12px;color:var(--muted);line-height:1.6; }
+
+.formRow { display:flex;gap:12px; }
+.submitBtn { width:100%;background:var(--green);color:var(--bg);font-family:'Inter',sans-serif;font-weight:700;font-size:15px;padding:14px;border-radius:9px;border:none;cursor:pointer;transition:all 0.2s;margin-top:4px; }
+.submitBtn:hover { background:var(--green-mid);transform:translateY(-1px);box-shadow:0 8px 24px rgba(0,237,100,0.2); }
+.disclaimer { font-size:11px;color:var(--muted);margin-top:12px;text-align:center;line-height:1.6; }
+.successBox  { text-align:center;padding:56px 20px; }
+.successTitle { font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:700;margin-bottom:12px;color:var(--text); }
+.successSub   { font-size:14px;color:var(--text-mid);line-height:1.75; }
+
+@media(max-width:768px) { .layout{grid-template-columns:1fr;padding:0 20px 48px} .pageHeader{padding:36px 20px 20px} .formRow{flex-direction:column} }
