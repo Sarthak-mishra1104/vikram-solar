@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { AnimatePresence } from 'framer-motion'
+import { AuthProvider, useAuth } from './hooks/useAuth'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import BgOrbs from './components/BgOrbs'
@@ -9,9 +10,10 @@ import Calculator from './pages/Calculator'
 import Explorer from './pages/Explorer'
 import Assistant from './pages/Assistant'
 import Contact from './pages/Contact'
+import Login from './pages/Login'
 import { ToastContext } from './hooks/useToast'
 
-export default function App() {
+function AppContent() {
   const [page, setPage] = useState('home')
   const [toasts, setToasts] = useState([])
 
@@ -26,15 +28,22 @@ export default function App() {
     setTimeout(() => setToasts(prev => prev.filter(t => t.id !== id)), 3500)
   }
 
-  const pages = { home: Home, calculator: Calculator, explorer: Explorer, assistant: Assistant, contact: Contact }
+  const pages = {
+    home: Home,
+    calculator: Calculator,
+    explorer: Explorer,
+    assistant: Assistant,
+    contact: Contact,
+    login: Login,
+  }
   const PageComponent = pages[page] || Home
 
   return (
     <ToastContext.Provider value={addToast}>
       <BgOrbs />
-      <div style={{ position: 'relative', zIndex: 1, minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+      <div style={{ position:'relative', zIndex:1, minHeight:'100vh', display:'flex', flexDirection:'column' }}>
         <Header currentPage={page} showPage={showPage} />
-        <main style={{ flex: 1 }}>
+        <main style={{ flex:1 }}>
           <AnimatePresence mode="wait">
             <PageComponent key={page} showPage={showPage} />
           </AnimatePresence>
@@ -43,5 +52,13 @@ export default function App() {
       </div>
       <ToastContainer toasts={toasts} />
     </ToastContext.Provider>
+  )
+}
+
+export default function App() {
+  return (
+    <AuthProvider>
+      <AppContent />
+    </AuthProvider>
   )
 }
