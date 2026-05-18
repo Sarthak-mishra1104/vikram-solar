@@ -16,7 +16,7 @@ export default function Footer({ showPage }) {
             <div className={styles.mark}>
               <img src="/logo.png" alt="VS" className={styles.markImg} />
             </div>
-            <div className={styles.brandName}>vikram<span>solar</span></div>
+           <div className={styles.brandName}>Solar<span>Sync</span></div>
           </div>
           <p className={styles.tagline}>India's leading solar energy company. Powering homes and businesses with clean, renewable energy since 2006.</p>
           <div className={styles.certs}>
@@ -34,11 +34,11 @@ export default function Footer({ showPage }) {
           <div className={styles.info}>1800-XXX-XXXX (Toll Free)</div>
           <div className={styles.info}>info@vikramsolar.com</div>
           <div className={styles.info}>Mon – Sat · 9AM – 7PM</div>
-          <div className={styles.info} style={{marginTop:16,color:'var(--green)',fontSize:12}}>3 GW+ Installed Capacity</div>
+          
         </div>
       </div>
       <div className={styles.bottom}>
-        <span>© 2025 Vikram Solar Pvt. Ltd. All rights reserved.</span>
+       <span>© 2025 SolarSync. All rights reserved.</span>
         <span style={{color:'var(--green)',opacity:0.7}}>Making India solar-powered ⚡</span>
       </div>
     </footer>

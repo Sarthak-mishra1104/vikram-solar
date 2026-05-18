@@ -16,7 +16,7 @@ export default function Header({ currentPage, showPage }) {
       <header className={styles.header}>
         {/* LOGO */}
         <div className={styles.logo} onClick={() => showPage('home')}>
-  <span className={styles.logoText}>vikram<span className={styles.logoAccent}>solar</span></span>
+  <span className={styles.logoText}>Solar<span className={styles.logoAccent}>Sync</span></span>
 </div>
           <div className={styles.logoText}>
             <div className={styles.logoName}>vikram<span>solar</span></div>

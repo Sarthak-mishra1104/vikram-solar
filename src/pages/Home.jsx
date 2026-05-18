@@ -6,22 +6,24 @@ const fade = { hidden:{opacity:0,y:28}, show:{opacity:1,y:0,transition:{duration
 const stagger = { show:{ transition:{ staggerChildren:0.1 } } }
 
 const STATS = [
-  { val:'3 GW+',     label:'Installed Capacity'   },
-  { val:'50K+',      label:'Happy Customers'      },
-  { val:'22 States', label:'Pan India Network'    },
-  { val:'18+ Years', label:'Industry Experience'  },
+  { val:'500+',  label:'Solar Companies'      },
+  { val:'50K+',  label:'End Customers Served' },
+  { val:'AI',    label:'Powered Platform'     },
+  { val:'Free',  label:'To Get Started'       },
 ]
+
 const FEATURES = [
-  { Icon:Calculator,    title:'Smart Solar Calculator', desc:'Enter rooftop size, consumption and appliances. AI instantly recommends the perfect system size, cost, ROI and payback period.', cta:'Calculate savings', page:'calculator' },
-  { Icon:Cpu,           title:'AI Bill Analyzer',        desc:'Upload your electricity bill. AI extracts consumption data and generates a precise personalised solar recommendation.', cta:'Analyze my bill', page:'calculator' },
-  { Icon:BarChart3,     title:'Solar Setup Explorer',    desc:'Compare Mono PERC, Bifacial and Poly panels. Explore packages, efficiency ratings, lifespan and subsidy benefits.', cta:'Explore panels', page:'explorer' },
-  { Icon:MessageSquare, title:'AI Solar Assistant',      desc:'Ask anything about solar — subsidies, net metering, EMI options, maintenance. Hindi and English, 24/7.', cta:'Start chatting', page:'assistant' },
+  { Icon:Calculator,    title:'Smart Solar Calculator', desc:'Customers enter rooftop size, consumption and appliances. AI instantly recommends the perfect system size, cost, ROI and payback period.', cta:'Calculate savings', page:'calculator' },
+  { Icon:Cpu,           title:'AI Bill Analyzer',       desc:'Customers upload their electricity bill. AI extracts consumption data and generates a precise personalised solar recommendation.', cta:'Analyze my bill', page:'calculator' },
+  { Icon:BarChart3,     title:'Solar Setup Explorer',   desc:'Compare Mono PERC, Bifacial and Poly panels. Explore packages, efficiency ratings, lifespan and government subsidy benefits.', cta:'Explore panels', page:'explorer' },
+  { Icon:MessageSquare, title:'AI Solar Assistant',     desc:'Ask anything about solar — subsidies, net metering, EMI options, maintenance. Available in Hindi and English, 24/7.', cta:'Start chatting', page:'assistant' },
 ]
+
 const WHY = [
-  { Icon:Shield,  title:'25-Year Warranty',   desc:'Industry-best product and performance warranty on all panel installations.' },
-  { Icon:Award,   title:'MNRE Certified',     desc:'All systems certified by Ministry of New and Renewable Energy, India.' },
-  { Icon:Users,   title:'50,000+ Customers',  desc:'Trusted by homes, societies and businesses across 22 Indian states.' },
-  { Icon:Zap,     title:'Fast Installation',  desc:'Professional installation completed in 1–2 days with zero downtime.' },
+  { Icon:Shield,  title:'White Label Ready', desc:'Any solar company can brand the platform with their own logo, colors, contact details and content in minutes.' },
+  { Icon:Award,   title:'AI Powered',        desc:'Smart calculator, bill analyzer and AI assistant built in — no extra setup or technical knowledge needed.' },
+  { Icon:Users,   title:'Customer Friendly', desc:'Simple, clean UI that any homeowner can use easily. Designed to convert visitors into leads.' },
+  { Icon:Zap,     title:'Quick Setup',       desc:'Get your fully branded solar platform live in less than 24 hours. No coding required.' },
 ]
 
 export default function Home({ showPage }) {
@@ -33,27 +35,36 @@ export default function Home({ showPage }) {
         <div className={styles.heroLeft}>
           <motion.div variants={fade}>
             <div className={styles.heroBadge}>
-              <span className="badge"><span className="badge-dot" />India's #1 Solar Platform</span>
+              <span className="badge">
+                <span className="badge-dot" />
+                Smart Solar Platform for Every Company
+              </span>
             </div>
             <h1 className={styles.h1}>
-              Power Your<br />
-              Home With<br />
-              <span className="gradient-text">Clean Solar</span>
+              The Smartest<br />
+              Way to Sell<br />
+              <span className="gradient-text">Solar Energy</span>
             </h1>
             <p className={styles.heroSub}>
-              India's most trusted solar platform. Calculate savings, compare panels, and get expert installation — backed by 18 years of solar expertise.
+              The all-in-one solar platform that helps your customers calculate savings,
+              compare panels, understand subsidies and connect with your team —
+              all under your brand.
             </p>
             <div className={styles.heroBtns}>
               <button className="btn-primary" onClick={() => showPage('calculator')}>
-                <Calculator size={16} /> Calculate My Savings
+                <Calculator size={16} /> Try the Calculator
               </button>
               <button className="btn-outline" onClick={() => showPage('contact')}>
-                Free Consultation <ChevronRight size={15} />
+                Get Started Free <ChevronRight size={15} />
               </button>
             </div>
             <div className={styles.heroTrust}>
-              {[{v:'50K+',l:'Customers'},{v:'3GW+',l:'Installed'},{v:'25 Yr',l:'Warranty'}].map((s,i) => (
-                <div key={s.l} style={{display:'flex',alignItems:'center',gap:20}}>
+              {[
+                { v:'500+', l:'Companies' },
+                { v:'AI',   l:'Powered'   },
+                { v:'Free', l:'To Try'    },
+              ].map((s, i) => (
+                <div key={s.l} style={{ display:'flex', alignItems:'center', gap:20 }}>
                   {i > 0 && <div className={styles.trustDivider} />}
                   <div className={styles.trustStat}>
                     <div className={styles.trustVal}>{s.v}</div>
@@ -64,8 +75,6 @@ export default function Home({ showPage }) {
             </div>
           </motion.div>
         </div>
-
-        
       </section>
 
       {/* STATS STRIP */}
@@ -86,15 +95,18 @@ export default function Home({ showPage }) {
           <div className={styles.featHeader}>
             <div>
               <div className="section-label">Platform Features</div>
-              <h2 className="section-title">Everything You Need<br />To Go Solar</h2>
+              <h2 className="section-title">Everything Your Customers<br />Need In One Place</h2>
             </div>
-            <p className="section-sub">From calculation to installation, our AI platform guides you through every step of your solar journey.</p>
+            <p className="section-sub">
+              Give your customers a powerful AI tool to calculate savings, compare panels
+              and book consultations — all under your brand.
+            </p>
           </div>
           <div className={styles.featGrid}>
             {FEATURES.map(f => (
               <motion.div key={f.title} className={styles.featCard}
                 onClick={() => showPage(f.page)} whileHover={{ y:-2 }}
-                transition={{ type:'spring',stiffness:300,damping:20 }}>
+                transition={{ type:'spring', stiffness:300, damping:20 }}>
                 <div className={styles.featIcon}><f.Icon size={24} strokeWidth={1.5} /></div>
                 <h3 className={styles.featTitle}>{f.title}</h3>
                 <p className={styles.featDesc}>{f.desc}</p>
@@ -105,20 +117,20 @@ export default function Home({ showPage }) {
         </div>
       </motion.section>
 
-      {/* SUBSIDY */}
+      {/* SUBSIDY BANNER */}
       <motion.section variants={fade}>
         <div className={styles.subsidySection}>
           <div className={styles.subsidyCard}>
             <div className={styles.subsidyLeft}>
               <div className={styles.subsidyLabel}>Government Scheme · 2024</div>
-              <h3 className={styles.subsidyTitle}>PM Surya Ghar Muft Bijli Yojana</h3>
+              <h3 className={styles.subsidyTitle}>Government Subsidy Made Simple</h3>
               <p className={styles.subsidySub}>
-                Get up to <strong>₹78,000 subsidy</strong> on a 3kW rooftop solar installation.
-                MNRE approved scheme available across all Indian states.
-                Apply at pmsuryaghar.gov.in
+                SolarSync automatically shows your customers the latest{' '}
+                <strong>PM Surya Ghar subsidies</strong> — up to ₹78,000 on 3kW systems.
+                Real-time, accurate and always up to date.
               </p>
-              <button className="btn-primary" style={{marginTop:24}} onClick={() => showPage('calculator')}>
-                Check My Eligibility <ChevronRight size={15} />
+              <button className="btn-primary" style={{ marginTop:24 }} onClick={() => showPage('calculator')}>
+                Check Eligibility <ChevronRight size={15} />
               </button>
             </div>
             <div className={styles.subsidyRight}>
@@ -129,11 +141,11 @@ export default function Home({ showPage }) {
         </div>
       </motion.section>
 
-      {/* WHY VIKRAM */}
+      {/* WHY SOLARSYNC */}
       <motion.section className={styles.whySection} variants={fade}>
         <div className={styles.whyInner}>
-          <div className="section-label">Why Vikram Solar</div>
-          <h2 className="section-title">Trusted by 50,000+<br />Indian Homeowners</h2>
+          <div className="section-label">Why SolarSync</div>
+          <h2 className="section-title">Built for Solar<br />Companies Like Yours</h2>
           <div className={styles.whyGrid}>
             {WHY.map(w => (
               <div key={w.title} className={styles.whyCard}>
@@ -146,17 +158,20 @@ export default function Home({ showPage }) {
         </div>
       </motion.section>
 
-      {/* CTA */}
+      {/* FINAL CTA */}
       <motion.section className={styles.ctaSection} variants={fade}>
         <div className={styles.ctaBg}>
-          <h2 className={styles.ctaTitle}>Ready to Switch to Solar?</h2>
-          <p className={styles.ctaSub}>Get a free rooftop assessment and customised quote from our certified solar experts.</p>
+          <h2 className={styles.ctaTitle}>Ready to Grow Your Solar Business?</h2>
+          <p className={styles.ctaSub}>
+            Get SolarSync for your company and start converting more customers today.
+            Free to get started — no credit card required.
+          </p>
           <div className={styles.ctaBtns}>
             <button className="btn-primary" onClick={() => showPage('contact')}>
-              Book Free Site Visit
+              Get Started Free
             </button>
             <button className="btn-outline" onClick={() => showPage('calculator')}>
-              <Calculator size={15} /> Use AI Calculator
+              <Calculator size={15} /> Try the Calculator
             </button>
           </div>
         </div>
