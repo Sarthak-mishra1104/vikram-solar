@@ -16,14 +16,13 @@ export default function Header({ currentPage, showPage }) {
       <header className={styles.header}>
         {/* LOGO */}
         <div className={styles.logo} onClick={() => showPage('home')}>
-          <div className={styles.logoMark}>
-           <img src="/logo.png" alt="Vikram Solar" className={styles.logoImg} /> 
-          </div>
+  <span className={styles.logoText}>vikram<span className={styles.logoAccent}>solar</span></span>
+</div>
           <div className={styles.logoText}>
             <div className={styles.logoName}>vikram<span>solar</span></div>
             <div className={styles.logoSub}>AI Platform</div>
           </div>
-        </div>
+        
 
         {/* NAV */}
         <nav className={styles.nav}>

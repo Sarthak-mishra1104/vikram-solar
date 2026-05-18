@@ -1,6 +1,6 @@
 /* ── HERO ─────────────────────────────────────── */
 .hero {
-  display:grid;grid-template-columns:1fr 1fr;
+  display:grid;grid-template-columns:1fr;
   min-height:calc(100vh - 68px);max-width:1160px;
   margin:0 auto;padding:80px 40px;gap:60px;align-items:center;
 }

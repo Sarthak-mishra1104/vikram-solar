@@ -1,10 +1,16 @@
 .header {
-  padding:0 40px;height:68px;
-  display:flex;align-items:center;justify-content:space-between;gap:24px;
-  border-bottom:1px solid var(--border);
-  background:rgba(10,15,13,0.88);
-  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
-  position:sticky;top:0;z-index:100;
+  padding: 0 40px;
+  height: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  border-bottom: 1px solid var(--border);
+  background: #ffffff;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 1px 8px rgba(0,0,0,0.06);
 }
 
 /* LOGO */
@@ -19,13 +25,15 @@
   transition:all 0.2s;
 }
 .logo:hover .logoMark { box-shadow:0 0 24px rgba(0,237,100,0.25);border-color:rgba(0,237,100,0.35); }
-.logoImg {
-  height: 36px;
-  width: auto;
-  object-fit: contain;
-  mix-blend-mode: screen;
-  filter: brightness(1.1) contrast(1.05) saturate(1.1);
-  transition: filter 0.2s;
+.logoText {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.3px;
+}
+.logoAccent {
+  color: var(--green-dark);
 }
 .logoName { font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;color:var(--text);letter-spacing:-0.2px;line-height:1; }
 .logoName span { color:var(--green); }
@@ -34,7 +42,9 @@
 /* NAV */
 .nav { display:flex;gap:0;align-items:center; }
 .navBtn {
-  background:none;border:none;color:var(--muted);
+  background: none;
+  border: none;
+  color: #3a5a47;
   font-family:'Inter',sans-serif;font-size:13px;font-weight:500;
   padding:6px 16px;cursor:pointer;transition:all 0.15s;
   border-radius:6px;height:36px;
@@ -61,7 +71,8 @@
 .cta:hover { background:var(--green-mid);box-shadow:0 4px 16px rgba(0,237,100,0.25); }
 
 .hamburger { display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px; }
-.hamburger span { width:20px;height:1.5px;background:var(--text-mid);border-radius:2px;transition:all 0.2s;display:block; }
+.hamburger span { width: 20px; height: 1.5px;
+  background: #0d1f16; }
 
 /* MOBILE MENU */
 .mobileMenu {

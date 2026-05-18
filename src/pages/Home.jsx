@@ -65,18 +65,7 @@ export default function Home({ showPage }) {
           </motion.div>
         </div>
 
-        <motion.div className={styles.heroRight} variants={fade}>
-          <div className={styles.heroDecor} />
-          <div className={styles.heroDecor2} />
-          <div className={styles.heroImgWrap}>
-            <img src="/building.jpg" alt="Vikram Solar Facility" className={styles.heroImg} />
-            <div className={styles.heroOverlay} />
-            <div className={styles.heroBadgeFloat}>
-              <div className={styles.floatDot} />
-              <span className={styles.floatText}>3 GW+ Capacity Installed Across India</span>
-            </div>
-          </div>
-        </motion.div>
+        
       </section>
 
       {/* STATS STRIP */}
