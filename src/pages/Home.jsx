@@ -1,15 +1,17 @@
 import { motion } from 'framer-motion'
 import { Calculator, Cpu, BarChart3, MessageSquare, ChevronRight, Shield, Award, Users, Zap } from 'lucide-react'
 import styles from './Home.module.css'
+import SolarSun from '../components/SolarSun'
+import { useCounter } from '../hooks/useCounter'
 
 const fade = { hidden:{opacity:0,y:28}, show:{opacity:1,y:0,transition:{duration:0.5,ease:[0.4,0,0.2,1]}} }
 const stagger = { show:{ transition:{ staggerChildren:0.1 } } }
 
 const STATS = [
-  { val:'500+',  label:'Solar Companies'      },
-  { val:'50K+',  label:'End Customers Served' },
-  { val:'AI',    label:'Powered Platform'     },
-  { val:'Free',  label:'To Get Started'       },
+  { val:'500',  suffix:'+', label:'Solar Companies',      isText:false },
+  { val:'50000',suffix:'K+',label:'End Customers Served', isText:false },
+  { val:'AI',   suffix:'',  label:'Powered Platform',     isText:true  },
+  { val:'Free', suffix:'',  label:'To Get Started',       isText:true  },
 ]
 
 const FEATURES = [
@@ -26,6 +28,18 @@ const WHY = [
   { Icon:Zap,     title:'Quick Setup',       desc:'Get your fully branded solar platform live in less than 24 hours. No coding required.' },
 ]
 
+function StatItem({ val, suffix, label, isText }) {
+  const { count, ref } = useCounter(isText ? 0 : parseInt(val), 2000)
+  return (
+    <div ref={ref} className={styles.statItem}>
+      <div className={styles.statVal}>
+        {isText ? val : `${count}${suffix}`}
+      </div>
+      <div className={styles.statLabel}>{label}</div>
+    </div>
+  )
+}
+
 export default function Home({ showPage }) {
   return (
     <motion.div initial="hidden" animate="show" variants={stagger}>
@@ -34,22 +48,29 @@ export default function Home({ showPage }) {
       <section className={styles.hero}>
         <div className={styles.heroLeft}>
           <motion.div variants={fade}>
+
+            {/* ANIMATED SUN */}
+            <SolarSun />
+
             <div className={styles.heroBadge}>
               <span className="badge">
                 <span className="badge-dot" />
                 Smart Solar Platform for Every Company
               </span>
             </div>
+
             <h1 className={styles.h1}>
               The Smartest<br />
               Way to Sell<br />
               <span className="gradient-text">Solar Energy</span>
             </h1>
+
             <p className={styles.heroSub}>
               The all-in-one solar platform that helps your customers calculate savings,
               compare panels, understand subsidies and connect with your team —
               all under your brand.
             </p>
+
             <div className={styles.heroBtns}>
               <button className="btn-primary" onClick={() => showPage('calculator')}>
                 <Calculator size={16} /> Try the Calculator
@@ -58,6 +79,7 @@ export default function Home({ showPage }) {
                 Get Started Free <ChevronRight size={15} />
               </button>
             </div>
+
             <div className={styles.heroTrust}>
               {[
                 { v:'500+', l:'Companies' },
@@ -73,6 +95,7 @@ export default function Home({ showPage }) {
                 </div>
               ))}
             </div>
+
           </motion.div>
         </div>
       </section>
@@ -81,10 +104,13 @@ export default function Home({ showPage }) {
       <motion.div className={styles.statsStrip} variants={fade}>
         <div className={styles.statsInner}>
           {STATS.map(s => (
-            <div key={s.label} className={styles.statItem}>
-              <div className={styles.statVal}>{s.val}</div>
-              <div className={styles.statLabel}>{s.label}</div>
-            </div>
+            <StatItem
+              key={s.label}
+              val={s.val}
+              suffix={s.suffix}
+              label={s.label}
+              isText={s.isText}
+            />
           ))}
         </div>
       </motion.div>
