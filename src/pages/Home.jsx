@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
 import { Calculator, Cpu, BarChart3, MessageSquare, ChevronRight, Shield, Award, Users, Zap } from 'lucide-react'
 import styles from './Home.module.css'
-import SolarSun from '../components/SolarSun'
+
 import { useCounter } from '../hooks/useCounter'
 
 const fade = { hidden:{opacity:0,y:28}, show:{opacity:1,y:0,transition:{duration:0.5,ease:[0.4,0,0.2,1]}} }
@@ -49,9 +49,9 @@ export default function Home({ showPage }) {
         <div className={styles.heroLeft}>
           <motion.div variants={fade}>
 
-            {/* ANIMATED SUN */}
-            <SolarSun />
-
+            <div className={styles.heroImgWrap}>
+  <img src="/house.jpg" alt="Solar House" className={styles.heroImg} />
+</div>
             <div className={styles.heroBadge}>
               <span className="badge">
                 <span className="badge-dot" />

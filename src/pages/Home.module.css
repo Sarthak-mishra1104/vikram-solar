@@ -131,3 +131,16 @@
 /* RESPONSIVE */
 @media(max-width:1024px) { .hero{grid-template-columns:1fr;min-height:auto;padding:60px 40px} .heroRight{display:none} .featHeader{grid-template-columns:1fr} .statsInner{grid-template-columns:repeat(2,1fr)} .whyGrid{grid-template-columns:repeat(2,1fr)} }
 @media(max-width:640px)  { .hero{padding:48px 20px} .statItem{padding:24px 20px} .featGrid{grid-template-columns:1fr} .subsidyCard{flex-direction:column;text-align:center;padding:32px 20px} .ctaBg{padding:60px 20px} .whyGrid{grid-template-columns:1fr} .statsInner{grid-template-columns:1fr} .whyInner,.featInner,.subsidySection{padding-left:20px;padding-right:20px} }
+.heroImgWrap {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto 36px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0,104,74,0.12);
+}
+.heroImg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
