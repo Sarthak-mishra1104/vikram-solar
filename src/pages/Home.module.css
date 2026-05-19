@@ -133,9 +133,9 @@
 @media(max-width:640px)  { .hero{padding:48px 20px} .statItem{padding:24px 20px} .featGrid{grid-template-columns:1fr} .subsidyCard{flex-direction:column;text-align:center;padding:32px 20px} .ctaBg{padding:60px 20px} .whyGrid{grid-template-columns:1fr} .statsInner{grid-template-columns:1fr} .whyInner,.featInner,.subsidySection{padding-left:20px;padding-right:20px} }
 .heroImgWrap {
   width: 100%;
-  max-width: 480px;
-  margin: 0 auto 36px;
-  border-radius: 16px;
+  max-width: 500px;
+  margin: 0 auto 40px;
+  border-radius: 20px;
   overflow: hidden;
   box-shadow: 0 8px 32px rgba(0,104,74,0.12);
 }
@@ -143,4 +143,5 @@
   width: 100%;
   height: auto;
   display: block;
+  object-fit: cover;
 }
