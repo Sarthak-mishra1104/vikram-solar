@@ -1,0 +1,78 @@
+.sunWrap {
+  position: relative;
+  width: 320px;
+  height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 40px;
+}
+.glow {
+  position: absolute;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,237,100,0.2) 0%, transparent 70%);
+  animation: pulse 3s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%,100% { transform: scale(1); opacity: 0.6; }
+  50%      { transform: scale(1.15); opacity: 1; }
+}
+.ring1, .ring2, .ring3 {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(0,237,100,0.15);
+  animation: ringPulse 3s ease-in-out infinite;
+}
+.ring1 { width: 180px; height: 180px; animation-delay: 0s; }
+.ring2 { width: 230px; height: 230px; animation-delay: 0.5s; }
+.ring3 { width: 280px; height: 280px; animation-delay: 1s; }
+@keyframes ringPulse {
+  0%,100% { opacity: 0.3; transform: scale(1); }
+  50%      { opacity: 0.8; transform: scale(1.03); }
+}
+.sun {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #00ed64, #00684a);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+  animation: sunGlow 3s ease-in-out infinite;
+  box-shadow:
+    0 0 40px rgba(0,237,100,0.4),
+    0 0 80px rgba(0,237,100,0.2),
+    0 0 120px rgba(0,237,100,0.1);
+}
+@keyframes sunGlow {
+  0%,100% { box-shadow: 0 0 40px rgba(0,237,100,0.4), 0 0 80px rgba(0,237,100,0.2); }
+  50%      { box-shadow: 0 0 60px rgba(0,237,100,0.6), 0 0 100px rgba(0,237,100,0.3); }
+}
+.sunInner {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #00ff6e, #00ed64);
+  box-shadow: inset 0 -8px 16px rgba(0,0,0,0.15);
+}
+.ray {
+  position: absolute;
+  width: 2px;
+  height: 24px;
+  background: linear-gradient(to bottom, rgba(0,237,100,0.8), transparent);
+  border-radius: 2px;
+  top: 8px;
+  left: 50%;
+  transform-origin: bottom center;
+  animation: rayPulse 3s ease-in-out infinite;
+}
+.ray:nth-child(odd)  { animation-delay: 0.2s; }
+.ray:nth-child(even) { animation-delay: 0.8s; }
+@keyframes rayPulse {
+  0%,100% { opacity: 0.4; height: 24px; }
+  50%      { opacity: 1;   height: 32px; }
+}
