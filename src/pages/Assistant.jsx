@@ -48,7 +48,7 @@ function getFallback(msg) {
 export default function Assistant() {
   const [messages, setMessages] = useState([{
     role:'assistant',
-    content:'Welcome to Vikram Solar AI Assistant.\n\nI can help you with solar system sizing, government subsidies, financing options, net metering, and installation guidance.\n\nAsk me anything in Hindi or English.'
+    content:'Welcome to SolarSync AI Assistant.\n\nI can help you with solar system sizing, government subsidies, financing options, net metering, and installation guidance.\n\nAsk me anything in Hindi or English.'
   }])
   const [input, setInput] = useState('')
   const [typing, setTyping] = useState(false)
