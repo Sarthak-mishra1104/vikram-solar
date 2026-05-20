@@ -82,7 +82,7 @@ export default function Assistant() {
       <div className={styles.header}>
         <div className={styles.botAvatar}><Bot size={18} strokeWidth={1.5}/></div>
         <div>
-          <div className={styles.botName}>Vikram AI Assistant</div>
+          <div className={styles.botName}>SolarSync AI Assistant</div>
           <div className={styles.botStatus}>Online · Answers in Hindi & English</div>
         </div>
       </div>
