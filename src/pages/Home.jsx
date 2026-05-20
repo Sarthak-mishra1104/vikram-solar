@@ -1,17 +1,16 @@
 import { motion } from 'framer-motion'
 import { Calculator, Cpu, BarChart3, MessageSquare, ChevronRight, Shield, Award, Users, Zap } from 'lucide-react'
 import styles from './Home.module.css'
-
 import { useCounter } from '../hooks/useCounter'
 
 const fade = { hidden:{opacity:0,y:28}, show:{opacity:1,y:0,transition:{duration:0.5,ease:[0.4,0,0.2,1]}} }
 const stagger = { show:{ transition:{ staggerChildren:0.1 } } }
 
 const STATS = [
-  { val:'500',  suffix:'+', label:'Solar Companies',      isText:false },
-  { val:'50000',suffix:'K+',label:'End Customers Served', isText:false },
-  { val:'AI',   suffix:'',  label:'Powered Platform',     isText:true  },
-  { val:'Free', suffix:'',  label:'To Get Started',       isText:true  },
+  { val:'500',  suffix:'+',  label:'Solar Companies',      isText:false },
+  { val:'50000',suffix:'K+', label:'End Customers Served', isText:false },
+  { val:'AI',   suffix:'',   label:'Powered Platform',     isText:true  },
+  { val:'Free', suffix:'',   label:'To Get Started',       isText:true  },
 ]
 
 const FEATURES = [
@@ -44,63 +43,67 @@ export default function Home({ showPage }) {
   return (
     <motion.div initial="hidden" animate="show" variants={stagger}>
 
-      {/* HERO */}
+      {/* ── HERO ── */}
       <section className={styles.hero}>
-        <div className={styles.heroLeft}>
-          <motion.div variants={fade}>
 
-            <div className={styles.heroImgWrap}>
-  <img src="/house.jpg" alt="Solar House" className={styles.heroImg} />
-</div>
-            <div className={styles.heroBadge}>
-              <span className="badge">
-                <span className="badge-dot" />
-                Smart Solar Platform for Every Company
-              </span>
-            </div>
-
-            <h1 className={styles.h1}>
-              The Smartest<br />
-              Way to Sell<br />
-              <span className="gradient-text">Solar Energy</span>
-            </h1>
-
-            <p className={styles.heroSub}>
-              The all-in-one solar platform that helps your customers calculate savings,
-              compare panels, understand subsidies and connect with your team —
-              all under your brand.
-            </p>
-
-            <div className={styles.heroBtns}>
-              <button className="btn-primary" onClick={() => showPage('calculator')}>
-                <Calculator size={16} /> Try the Calculator
-              </button>
-              <button className="btn-outline" onClick={() => showPage('contact')}>
-                Get Started Free <ChevronRight size={15} />
-              </button>
-            </div>
-
-            <div className={styles.heroTrust}>
-              {[
-                { v:'500+', l:'Companies' },
-                { v:'AI',   l:'Powered'   },
-                { v:'Free', l:'To Try'    },
-              ].map((s, i) => (
-                <div key={s.l} style={{ display:'flex', alignItems:'center', gap:20 }}>
-                  {i > 0 && <div className={styles.trustDivider} />}
-                  <div className={styles.trustStat}>
-                    <div className={styles.trustVal}>{s.v}</div>
-                    <div className={styles.trustLabel}>{s.l}</div>
-                  </div>
+        {/* LEFT — TEXT */}
+        <motion.div className={styles.heroLeft} variants={fade}>
+          <div className={styles.heroBadge}>
+            <span className="badge">
+              <span className="badge-dot" />
+              Smart Solar Platform for Every Company
+            </span>
+          </div>
+          <h1 className={styles.h1}>
+            The Smartest<br />
+            Way to Sell<br />
+            <span className="gradient-text">Solar Energy</span>
+          </h1>
+          <p className={styles.heroSub}>
+            The all-in-one solar platform that helps your customers calculate savings,
+            compare panels, understand subsidies and connect with your team —
+            all under your brand.
+          </p>
+          <div className={styles.heroBtns}>
+            <button className="btn-primary" onClick={() => showPage('calculator')}>
+              <Calculator size={16} /> Try the Calculator
+            </button>
+            <button className="btn-outline" onClick={() => showPage('contact')}>
+              Get Started Free <ChevronRight size={15} />
+            </button>
+          </div>
+          <div className={styles.heroTrust}>
+            {[
+              { v:'500+', l:'Companies' },
+              { v:'AI',   l:'Powered'   },
+              { v:'Free', l:'To Try'    },
+            ].map((s, i) => (
+              <div key={s.l} style={{ display:'flex', alignItems:'center', gap:20 }}>
+                {i > 0 && <div className={styles.trustDivider} />}
+                <div className={styles.trustStat}>
+                  <div className={styles.trustVal}>{s.v}</div>
+                  <div className={styles.trustLabel}>{s.l}</div>
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
+          </div>
+        </motion.div>
 
-          </motion.div>
-        </div>
+        {/* RIGHT — IMAGE */}
+        <motion.div className={styles.heroRight} variants={fade}>
+          <div className={styles.heroImgWrap}>
+            <div className={styles.heroImgGlow} />
+            <img
+              src="/house.png"
+              alt="Solar House"
+              className={styles.heroImg}
+            />
+          </div>
+        </motion.div>
+
       </section>
 
-      {/* STATS STRIP */}
+      {/* ── STATS STRIP ── */}
       <motion.div className={styles.statsStrip} variants={fade}>
         <div className={styles.statsInner}>
           {STATS.map(s => (
@@ -115,7 +118,7 @@ export default function Home({ showPage }) {
         </div>
       </motion.div>
 
-      {/* FEATURES */}
+      {/* ── FEATURES ── */}
       <motion.section className={styles.featSection} variants={fade}>
         <div className={styles.featInner}>
           <div className={styles.featHeader}>
@@ -143,7 +146,7 @@ export default function Home({ showPage }) {
         </div>
       </motion.section>
 
-      {/* SUBSIDY BANNER */}
+      {/* ── SUBSIDY ── */}
       <motion.section variants={fade}>
         <div className={styles.subsidySection}>
           <div className={styles.subsidyCard}>
@@ -167,7 +170,7 @@ export default function Home({ showPage }) {
         </div>
       </motion.section>
 
-      {/* WHY SOLARSYNC */}
+      {/* ── WHY SOLARSYNC ── */}
       <motion.section className={styles.whySection} variants={fade}>
         <div className={styles.whyInner}>
           <div className="section-label">Why SolarSync</div>
@@ -184,7 +187,7 @@ export default function Home({ showPage }) {
         </div>
       </motion.section>
 
-      {/* FINAL CTA */}
+      {/* ── FINAL CTA ── */}
       <motion.section className={styles.ctaSection} variants={fade}>
         <div className={styles.ctaBg}>
           <h2 className={styles.ctaTitle}>Ready to Grow Your Solar Business?</h2>
