@@ -14,9 +14,7 @@ export default function Header({ currentPage, showPage }) {
   const [open, setOpen] = useState(false)
   const { user, logout } = useAuth()
 
-  const handleLogout = async () => {
-    await logout()
-  }
+  const handleLogout = async () => await logout()
 
   return (
     <>
@@ -43,6 +41,13 @@ export default function Header({ currentPage, showPage }) {
 
         {/* RIGHT */}
         <div className={styles.navRight}>
+
+          {/* GET FREE QUOTE — always visible */}
+          <button className={styles.cta} onClick={() => showPage('contact')}>
+            Get Free Quote
+          </button>
+
+          {/* USER / SIGN IN */}
           {user ? (
             <div className={styles.userRow}>
               <img src={user.photoURL} alt={user.displayName} className={styles.userAvatar} />
@@ -50,10 +55,12 @@ export default function Header({ currentPage, showPage }) {
               <button className={styles.logoutBtn} onClick={handleLogout}>Sign Out</button>
             </div>
           ) : (
-            <button className={styles.cta} onClick={() => showPage('login')}>
+            <button className={styles.signInBtn} onClick={() => showPage('login')}>
               Sign In
             </button>
           )}
+
+          {/* HAMBURGER */}
           <button className={styles.hamburger} onClick={() => setOpen(o => !o)}>
             <span /><span /><span />
           </button>
