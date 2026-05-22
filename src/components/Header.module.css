@@ -82,12 +82,30 @@
 
 /* ── RESPONSIVE ── */
 @media(max-width: 900px) {
-  .header { padding:0 16px; }
-  .nav { display:none; }
-  .signInBtn { display:none; }
-  .logoutBtn { display:none; }
-  .userName { display:none; }
-  .hamburger { display:flex; }
+  .header { 
+    padding:0 16px;
+    flex-wrap: wrap;
+    height: auto;
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+  .nav { 
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    width: 100%;
+    order: 3;
+    gap: 0;
+    padding-bottom: 4px;
+  }
+  .nav::-webkit-scrollbar { display: none; }
+  .navBtn { 
+    font-size: 12px;
+    padding: 6px 10px;
+    white-space: nowrap;
+  }
+  .hamburger { display: none; }
+}
   .cta { 
     display:flex !important; 
     font-size:12px;
@@ -95,7 +113,7 @@
     background:#00684a;
     color:#fff;
   }
-}
+
 /* ── BOTTOM NAV (mobile only) ── */
 .bottomNav {
   display: none;
