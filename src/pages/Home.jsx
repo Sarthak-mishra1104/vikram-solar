@@ -141,7 +141,6 @@ function SolarAnimation() {
     </div>
   )
 }
-
 export default function Home({ showPage }) {
   return (
     <div className={styles.page}>
