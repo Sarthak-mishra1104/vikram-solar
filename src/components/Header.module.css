@@ -89,7 +89,18 @@
 .mobileMenu button:hover { background:var(--surface);color:var(--text); }
 .mobileActive { color:var(--green) !important;background:var(--green-dim) !important; }
 
-@media(max-width:900px) { .nav{display:none} .cta{display:none} .hamburger{display:flex} .header{padding:0 20px} }
+@media(max-width: 900px) {
+  .nav { display: none; }
+  .cta { display: flex; }
+  .hamburger { display: flex; }
+  .header { padding: 0 16px; }
+}
+@media(max-width: 640px) {
+  .cta {
+    font-size: 12px;
+    padding: 8px 14px;
+  }
+}
 .userRow {
   display: flex;
   align-items: center;
