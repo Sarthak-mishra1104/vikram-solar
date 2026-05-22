@@ -96,3 +96,39 @@
     color:#fff;
   }
 }
+/* ── BOTTOM NAV (mobile only) ── */
+.bottomNav {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border-top: 1px solid var(--border);
+  z-index: 100;
+  padding: 8px 0 12px;
+  box-shadow: 0 -4px 16px rgba(0,0,0,0.08);
+}
+.bottomNavBtn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  flex: 1;
+  padding: 4px 0;
+  color: var(--muted);
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  transition: all 0.15s;
+}
+.bottomNavBtn:hover { color: var(--green-dark); }
+.bottomNavActive { color: var(--green-dark) !important; }
+.bottomNavActive svg { stroke: var(--green-dark); }
+
+@media(max-width: 900px) {
+  .bottomNav { display: flex; }
+}

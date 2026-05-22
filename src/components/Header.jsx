@@ -84,6 +84,29 @@ export default function Header({ currentPage, showPage }) {
           )}
         </div>
       )}
+      {/* MOBILE BOTTOM NAV */}
+<nav className={styles.bottomNav}>
+  <button className={`${styles.bottomNavBtn} ${currentPage==='home' ? styles.bottomNavActive : ''}`} onClick={()=>showPage('home')}>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    <span>Home</span>
+  </button>
+  <button className={`${styles.bottomNavBtn} ${currentPage==='calculator' ? styles.bottomNavActive : ''}`} onClick={()=>showPage('calculator')}>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="12" y2="14"/></svg>
+    <span>Calculate</span>
+  </button>
+  <button className={`${styles.bottomNavBtn} ${currentPage==='explorer' ? styles.bottomNavActive : ''}`} onClick={()=>showPage('explorer')}>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <span>Explore</span>
+  </button>
+  <button className={`${styles.bottomNavBtn} ${currentPage==='assistant' ? styles.bottomNavActive : ''}`} onClick={()=>showPage('assistant')}>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+    <span>AI Chat</span>
+  </button>
+  <button className={`${styles.bottomNavBtn} ${currentPage==='contact' ? styles.bottomNavActive : ''}`} onClick={()=>showPage('contact')}>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.1 1.18 2 2 0 012 .04h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/></svg>
+    <span>Contact</span>
+  </button>
+</nav>
     </>
   )
 }
