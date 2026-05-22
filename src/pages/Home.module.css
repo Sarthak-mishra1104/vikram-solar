@@ -247,7 +247,21 @@
 /* ── RESPONSIVE ── */
 @media(max-width: 1024px) {
   .heroInner { grid-template-columns: 1fr; padding: 60px 40px; gap: 48px; text-align: center; }
-  .heroRight { display: none; }
+  .heroRight {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.solarAnim {
+  width: 320px;
+  height: 320px;
+}
+.houseImg { width: 220px; }
+.sunCore { top: 10px; right: 20px; }
+.heroImgGlow { width: 220px; height: 220px; }
+.floatCard1 { bottom: 40px; left: 0; transform: scale(0.85); }
+.floatCard2 { top: 60px; right: 0; transform: scale(0.85); }
+.floatCard3 { display: none; }
   .heroBtns { justify-content: center; }
   .heroTrust { justify-content: center; }
   .heroSub { margin-left: auto; margin-right: auto; }
@@ -261,6 +275,10 @@
   .statsInner { grid-template-columns: repeat(2,1fr); }
 }
 @media(max-width: 640px) {
+  .solarAnim { width: 260px; height: 260px; }
+.houseImg { width: 180px; }
+.floatCard1 { transform: scale(0.75); }
+.floatCard2 { transform: scale(0.75); }
   .heroInner { padding: 48px 20px; }
   .howInner,.featInner,.whyInner,.testInner { padding: 0 20px; }
   .howSection,.featSection,.whySection,.testSection { padding: 64px 0; }
