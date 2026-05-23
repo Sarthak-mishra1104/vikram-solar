@@ -1,3 +1,4 @@
+import IndiaMap from '../components/IndiaMap'
 import { motion, useScroll, useSpring } from 'framer-motion'
 import { useRef, useState, useEffect } from 'react'
 import { Calculator, Cpu, BarChart3, MessageSquare, ChevronRight, Shield, Award, Users, Zap, Sun, Battery, TrendingUp, CheckCircle, ArrowRight, Star, Phone } from 'lucide-react'
@@ -451,7 +452,9 @@ export default function Home({ showPage }) {
           </div>
         </div>
       </section>
+<IndiaMap />
 
+{/* ── TESTIMONIALS ── */}
       {/* ── TESTIMONIALS ── */}
       <section id="test" className={styles.testSection}>
         <div className={styles.testInner}>

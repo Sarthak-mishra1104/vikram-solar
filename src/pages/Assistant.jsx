@@ -13,7 +13,7 @@ const QUICK_CHIPS = [
   { label: 'Best Panels',       q: 'India mein ghar ke liye sabse acche solar panels konse hain aur kyun?' },
 ]
 
-const SYSTEM_PROMPT = `You are Vikram, a friendly and expert solar energy advisor for SolarSync India. You help Indian homeowners and businesses make smart solar decisions.
+const SYSTEM_PROMPT = `You are a friendly and expert solar energy advisor for SolarSync India. You help Indian homeowners and businesses make smart solar decisions.
 
 PERSONALITY:
 - Warm, friendly, and conversational — like a knowledgeable friend
@@ -86,7 +86,7 @@ function getFallback(msg) {
     return `Solar panels ki maintenance bahut simple hai, tension mat lo!\n\nMonthly:\n• Subah jaldi thoda paani se panels saaf karein\n• Soft cloth ya mop use karein, scratches se bachein\n\nYearly:\n• Certified engineer se inspection karwaayein\n• Wiring aur connections check karwaayein\n\nHar 2-3 saal:\n• Inverter ka service karwaayein\n• Performance data review karein\n\nInverter app se daily output monitor kar sakte hain. Panels 25+ saal chalte hain minimal care se!\n\n💡 Tip: Most installers 5-year AMC (Annual Maintenance Contract) offer karte hain jo bahut useful hota hai.`
   if (l.includes('payback') || l.includes('return') || l.includes('roi') || l.includes('kitne saal'))
     return `Solar investment ka return bahut accha hota hai!\n\nTypical payback period:\n• Subsidy ke baad: 4-6 saal\n• Annual ROI: 15-25%\n• Panels ki life: 25+ saal\n\nExample calculation:\n• 3kW system, net cost ₹1,17,000\n• Monthly savings: ~₹2,500-3,000\n• Payback period: ~3.5-4 saal\n• Baaki 21+ saal FREE electricity!\n\n25 saal mein total savings: ₹7-9 lakh (sirf ₹1.17 lakh investment pe)!\n\n💡 Tip: Aapka specific ROI calculate karne ke liye Calculator page use karein — bill amount daalo aur exact numbers paao.`
-  return `Namaste! Main Vikram hoon, aapka solar energy expert. 😊\n\nMain aapki help kar sakta hoon:\n• Solar system sizing aur cost calculation\n• Government subsidies aur PM Surya Ghar scheme\n• Net metering aur billing\n• EMI aur financing options\n• Installation aur maintenance guidance\n• Panel types comparison\n\nKoi bhi sawaal poochho — Hindi, English, ya Hinglish mein! 🌞\n\n💡 Quick tip: Apna monthly electricity bill batao, main turant calculate kar doonga kitna bachega solar se!`
+  return `Namaste! Main SolarSync hoon, aapka solar energy expert. 😊\n\nMain aapki help kar sakta hoon:\n• Solar system sizing aur cost calculation\n• Government subsidies aur PM Surya Ghar scheme\n• Net metering aur billing\n• EMI aur financing options\n• Installation aur maintenance guidance\n• Panel types comparison\n\nKoi bhi sawaal poochho — Hindi, English, ya Hinglish mein! 🌞\n\n💡 Quick tip: Apna monthly electricity bill batao, main turant calculate kar doonga kitna bachega solar se!`
 }
 
 export default function Assistant() {
@@ -162,9 +162,9 @@ export default function Assistant() {
     setTyping(true)
     const history = [...messages, userMsg].map(m => ({ role: m.role, content: m.content }))
     try {
-      const res = await fetch('https://api.anthropic.com/v1/messages', {
+      const res = await fetch('/api/chat', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+       
         body: JSON.stringify({
           model: 'claude-sonnet-4-20250514',
           max_tokens: 1000,
@@ -193,7 +193,7 @@ export default function Assistant() {
       <div className={styles.header}>
         <div className={styles.botAvatar}><Bot size={18} strokeWidth={1.5} /></div>
         <div style={{ flex: 1 }}>
-          <div className={styles.botName}>Vikram — Solar AI Expert</div>
+          <div className={styles.botName}>SolarSync AI Expert</div>
           <div className={styles.botStatus}>
             <span className={styles.statusDot} />
             Online · Hindi, English & Hinglish

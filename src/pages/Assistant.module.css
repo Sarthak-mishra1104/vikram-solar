@@ -42,3 +42,8 @@
 .chatInput:focus { border-color:rgba(0,104,74,0.4);background:#fff; }
 .sendBtn { background:var(--green-dark);border:none;border-radius:10px;width:42px;height:42px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;flex-shrink:0;transition:all 0.2s; }
 .sendBtn:hover { opacity:0.88; }
+
+
+
+
+
