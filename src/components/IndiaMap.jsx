@@ -26,7 +26,7 @@ const CITIES = [
 const STATS = [
   { val: 4500,  suffix: '+', label: 'Installations'  },
   { val: 75,    suffix: '+', label: 'Cities'          },
-  { val: 22,    suffix,      label: 'States'          },
+  { val: 22,    suffix: '',      label: 'States'          },
   { val: 3,     suffix: 'GW+',label: 'Capacity'       },
 ]
 
