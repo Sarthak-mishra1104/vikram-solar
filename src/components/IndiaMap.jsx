@@ -1,30 +1,31 @@
-import { motion } from 'framer-motion'
+import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { useCounter } from '../hooks/useCounter'
 import styles from './IndiaMap.module.css'
 
 const CITIES = [
-  { name: 'Delhi',      x: 44, y: 26, size: 'lg' },
-  { name: 'Mumbai',     x: 27, y: 55, size: 'lg' },
-  { name: 'Bangalore',  x: 38, y: 73, size: 'lg' },
-  { name: 'Chennai',    x: 46, y: 76, size: 'md' },
-  { name: 'Hyderabad',  x: 42, y: 64, size: 'md' },
-  { name: 'Ahmedabad',  x: 24, y: 44, size: 'md' },
-  { name: 'Pune',       x: 29, y: 58, size: 'md' },
-  { name: 'Jaipur',     x: 36, y: 32, size: 'sm' },
-  { name: 'Lucknow',    x: 52, y: 32, size: 'sm' },
-  { name: 'Indore',     x: 35, y: 48, size: 'sm' },
-  { name: 'Surat',      x: 25, y: 50, size: 'sm' },
-  { name: 'Kolkata',    x: 65, y: 45, size: 'sm' },
-  { name: 'Bhopal',     x: 38, y: 46, size: 'sm' },
-  { name: 'Kochi',      x: 35, y: 83, size: 'sm' },
-  { name: 'Nagpur',     x: 44, y: 52, size: 'sm' },
+  { name: 'Delhi',       x: 42, y: 24, installs: '8,500+', size: 'lg' },
+  { name: 'Mumbai',      x: 26, y: 52, installs: '7,200+', size: 'lg' },
+  { name: 'Bangalore',   x: 36, y: 71, installs: '6,800+', size: 'lg' },
+  { name: 'Chennai',     x: 44, y: 74, installs: '5,400+', size: 'md' },
+  { name: 'Hyderabad',   x: 40, y: 62, installs: '5,100+', size: 'md' },
+  { name: 'Ahmedabad',   x: 22, y: 42, installs: '4,800+', size: 'md' },
+  { name: 'Pune',        x: 27, y: 55, installs: '4,200+', size: 'md' },
+  { name: 'Jaipur',      x: 34, y: 30, installs: '3,900+', size: 'sm' },
+  { name: 'Lucknow',     x: 50, y: 28, installs: '3,200+', size: 'sm' },
+  { name: 'Indore',      x: 33, y: 44, installs: '2,800+', size: 'sm' },
+  { name: 'Surat',       x: 23, y: 48, installs: '2,600+', size: 'sm' },
+  { name: 'Kolkata',     x: 63, y: 42, installs: '2,400+', size: 'sm' },
+  { name: 'Bhopal',      x: 36, y: 43, installs: '2,200+', size: 'sm' },
+  { name: 'Kochi',       x: 33, y: 81, installs: '1,600+', size: 'sm' },
+  { name: 'Nagpur',      x: 43, y: 50, installs: '1,500+', size: 'sm' },
 ]
 
 const STATS = [
-  { val: 4500, suffix: '+',  label: 'Installations' },
-  { val: 75,   suffix: '+',  label: 'Cities'         },
-  { val: 22,   suffix: '',   label: 'States'          },
-  { val: 3,    suffix: 'GW+',label: 'Capacity'        },
+  { val: 4500, suffix: '+',   label: 'Installations' },
+  { val: 75,   suffix: '+',   label: 'Cities'        },
+  { val: 22,   suffix: '',    label: 'States'        },
+  { val: 3,    suffix: 'GW+', label: 'Capacity'      },
 ]
 
 function StatCount({ val, suffix, label }) {
@@ -37,23 +38,67 @@ function StatCount({ val, suffix, label }) {
   )
 }
 
-/* Solar Panel Icon SVG */
-function SolarPanelIcon({ size }) {
-  const s = size === 'lg' ? 18 : size === 'md' ? 14 : 10
+function PanelMarker({ city, index }) {
+  const [hovered, setHovered] = useState(false)
+  const size = city.size === 'lg' ? 20 : city.size === 'md' ? 15 : 11
+
   return (
-    <svg width={s} height={s} viewBox="0 0 24 24" fill="none">
-      {/* Panel grid */}
-      <rect x="1" y="4" width="22" height="14" rx="1" fill="rgba(0,104,74,0.15)" stroke="#00684a" strokeWidth="1.5"/>
-      {/* Horizontal lines */}
-      <line x1="1" y1="9" x2="23" y2="9" stroke="#00684a" strokeWidth="1"/>
-      <line x1="1" y1="14" x2="23" y2="14" stroke="#00684a" strokeWidth="1"/>
-      {/* Vertical lines */}
-      <line x1="8" y1="4" x2="8" y2="18" stroke="#00684a" strokeWidth="1"/>
-      <line x1="16" y1="4" x2="16" y2="18" stroke="#00684a" strokeWidth="1"/>
-      {/* Stand */}
-      <line x1="12" y1="18" x2="12" y2="22" stroke="#00684a" strokeWidth="1.5"/>
-      <line x1="8" y1="22" x2="16" y2="22" stroke="#00684a" strokeWidth="1.5"/>
-    </svg>
+    <g
+      style={{ cursor: 'pointer' }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}>
+
+      {/* Glow pulse */}
+      <circle
+        cx={city.x + '%'} cy={city.y + '%'}
+        r={size * 0.8}
+        fill="rgba(0,200,83,0.1)"
+        className={styles.pulse}
+        style={{ animationDelay: `${index * 0.3}s` }}
+      />
+
+      {/* Solar Panel */}
+      <g transform={`translate(${city.x - size/2}%, ${city.y - size * 0.6}%)`}>
+        {/* Panel frame */}
+        <rect
+          x="0" y="0"
+          width={`${size}%`} height={`${size * 0.65}%`}
+          rx="0.5%"
+          fill={hovered ? 'rgba(0,104,74,0.25)' : 'rgba(0,104,74,0.12)'}
+          stroke={hovered ? '#00c853' : '#00684a'}
+          strokeWidth="0.4%"
+          style={{ transition: 'all 0.2s' }}
+        />
+        {/* Horizontal grid */}
+        <line x1="0" y1={`${size * 0.22}%`} x2={`${size}%`} y2={`${size * 0.22}%`}
+          stroke={hovered ? '#00c853' : '#00684a'} strokeWidth="0.3%"/>
+        <line x1="0" y1={`${size * 0.43}%`} x2={`${size}%`} y2={`${size * 0.43}%`}
+          stroke={hovered ? '#00c853' : '#00684a'} strokeWidth="0.3%"/>
+        {/* Vertical grid */}
+        <line x1={`${size * 0.33}%`} y1="0" x2={`${size * 0.33}%`} y2={`${size * 0.65}%`}
+          stroke={hovered ? '#00c853' : '#00684a'} strokeWidth="0.3%"/>
+        <line x1={`${size * 0.66}%`} y1="0" x2={`${size * 0.66}%`} y2={`${size * 0.65}%`}
+          stroke={hovered ? '#00c853' : '#00684a'} strokeWidth="0.3%"/>
+        {/* Stand */}
+        <line x1={`${size * 0.5}%`} y1={`${size * 0.65}%`} x2={`${size * 0.5}%`} y2={`${size * 0.9}%`}
+          stroke={hovered ? '#00c853' : '#00684a'} strokeWidth="0.4%"/>
+        <line x1={`${size * 0.2}%`} y1={`${size * 0.9}%`} x2={`${size * 0.8}%`} y2={`${size * 0.9}%`}
+          stroke={hovered ? '#00c853' : '#00684a'} strokeWidth="0.4%"/>
+      </g>
+
+      {/* Hover tooltip - rendered as foreignObject */}
+      {hovered && (
+        <foreignObject
+          x={`${city.x - 6}%`}
+          y={`${city.y - 14}%`}
+          width="12%" height="10%">
+          <div className={styles.tooltip}>
+            <div className={styles.tooltipCity}>{city.name}</div>
+            <div className={styles.tooltipCount}>{city.installs} installs</div>
+          </div>
+        </foreignObject>
+      )}
+    </g>
   )
 }
 
@@ -80,148 +125,169 @@ export default function IndiaMap() {
           {STATS.map(s => <StatCount key={s.label} {...s} />)}
         </motion.div>
 
-        {/* MAP */}
+        {/* MAP CONTAINER */}
         <motion.div className={styles.mapWrap}
-          initial={{ opacity:0, scale:0.95 }}
-          whileInView={{ opacity:1, scale:1 }}
+          initial={{ opacity:0, y:30 }}
+          whileInView={{ opacity:1, y:0 }}
           viewport={{ once:true, amount:0.2 }}
           transition={{ duration:0.8, delay:0.3 }}>
 
-          {/* REAL INDIA SVG MAP */}
-          <svg
-            viewBox="0 0 400 450"
-            className={styles.mapSvg}
-            xmlns="http://www.w3.org/2000/svg">
+          <div className={styles.mapInner}>
+            {/* REAL INDIA SVG */}
+            <svg
+              viewBox="0 0 550 620"
+              className={styles.mapSvg}
+              xmlns="http://www.w3.org/2000/svg">
 
-            <defs>
-              <radialGradient id="mapGrad" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stopColor="rgba(0,237,100,0.08)"/>
-                <stop offset="100%" stopColor="rgba(0,237,100,0.02)"/>
-              </radialGradient>
-              <filter id="glow">
-                <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
-                <feMerge>
-                  <feMergeNode in="coloredBlur"/>
-                  <feMergeNode in="SourceGraphic"/>
-                </feMerge>
-              </filter>
-            </defs>
+              <defs>
+                <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+                  <feDropShadow dx="0" dy="4" stdDeviation="8" floodColor="rgba(0,104,74,0.15)"/>
+                </filter>
+                <filter id="panelGlow">
+                  <feGaussianBlur stdDeviation="1.5" result="blur"/>
+                  <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                </filter>
+              </defs>
 
-            {/* INDIA MAP PATH - accurate outline */}
-            <path
-              d="M160,10 L170,8 L185,10 L200,8 L215,12 L225,10 L240,15 L248,12 L255,18 L260,25 
-                 L265,20 L272,22 L278,28 L282,35 L285,30 L292,32 L295,40 L290,48 L295,52 
-                 L298,58 L295,65 L300,70 L298,78 L292,82 L295,88 L290,95 L285,100 
-                 L288,108 L285,115 L280,120 L275,128 L270,135 L265,142 L260,150 
-                 L255,158 L250,165 L245,172 L240,180 L235,188 L228,195 L222,202 
-                 L215,208 L208,215 L200,222 L192,228 L185,235 L178,240 L170,245 
-                 L162,248 L155,252 L148,255 L140,258 L132,255 L125,250 L118,245 
-                 L112,238 L106,230 L100,222 L95,214 L90,206 L85,198 L80,190 
-                 L76,182 L72,174 L68,165 L65,156 L62,147 L60,138 L58,128 
-                 L56,118 L55,108 L54,98 L56,88 L58,78 L62,68 L58,60 
-                 L55,52 L58,44 L64,38 L70,32 L78,27 L88,22 L98,18 
-                 L108,15 L118,12 L130,10 L142,9 L152,10 Z
-                 M155,252 L160,260 L162,270 L158,280 L152,288 L145,295 
-                 L140,302 L135,308 L130,315 L125,322 L118,328 L112,332 
-                 L105,335 L98,330 L95,322 L98,314 L102,306 L108,298 
-                 L112,290 L116,282 L120,274 L124,266 L128,260 L132,255 Z
-                 M240,15 L250,12 L258,8 L265,10 L270,15 L265,20 L258,18 L250,18 Z
-                 M292,32 L300,28 L308,30 L315,35 L318,42 L312,46 L305,44 L298,40 Z
-                 M295,88 L305,85 L315,88 L320,95 L315,102 L308,100 L300,95 Z"
-              fill="url(#mapGrad)"
-              stroke="rgba(0,104,74,0.3)"
-              strokeWidth="1.5"
-              strokeLinejoin="round"
-            />
+              {/* INDIA OUTLINE - accurate path */}
+              <path
+                d="M220,15 L235,12 L252,14 L268,11 L282,16 L296,13 L310,20 L322,18 
+                   L335,25 L342,20 L352,28 L358,38 L364,32 L374,35 L380,46 L376,58 
+                   L384,64 L388,75 L384,86 L390,94 L388,106 L382,114 L386,124 
+                   L382,134 L376,142 L380,152 L375,162 L368,170 L372,180 L366,190 
+                   L360,200 L354,210 L348,220 L342,230 L335,240 L328,250 L320,260 
+                   L312,270 L304,280 L295,290 L286,300 L276,310 L266,320 L256,330 
+                   L246,340 L236,350 L226,360 L216,368 L206,376 L196,382 L186,388 
+                   L176,392 L166,396 L156,398 L146,396 L136,390 L126,382 L118,374 
+                   L110,364 L103,354 L96,344 L90,334 L84,323 L78,312 L73,300 
+                   L68,288 L64,276 L60,264 L57,252 L55,240 L54,228 L54,216 
+                   L56,204 L59,192 L64,180 L60,168 L56,156 L60,144 L66,134 
+                   L74,124 L82,116 L90,108 L98,100 L95,90 L92,80 L96,70 
+                   L104,62 L114,55 L124,49 L135,44 L146,40 L158,36 L170,32 
+                   L182,28 L194,24 L206,20 L214,17 Z
+                   M156,398 L162,410 L165,422 L162,435 L156,447 L149,458 
+                   L141,468 L132,477 L122,485 L112,491 L102,495 L93,490 
+                   L88,480 L92,470 L98,460 L106,452 L114,444 L120,436 
+                   L126,428 L132,420 L138,412 L144,405 L150,400 Z
+                   M282,16 L295,11 L308,14 L318,10 L328,15 L322,22 L312,20 Z
+                   M374,35 L386,30 L398,34 L406,42 L400,50 L390,48 L380,46 Z
+                   M384,86 L398,82 L412,86 L418,96 L412,104 L400,102 L390,94 Z"
+                fill="rgba(0,237,100,0.06)"
+                stroke="rgba(0,104,74,0.35)"
+                strokeWidth="1.5"
+                strokeLinejoin="round"
+                filter="url(#shadow)"
+              />
 
-            {/* STATE DIVIDERS - subtle lines */}
-            <path d="M160,80 L200,75 L240,80" stroke="rgba(0,104,74,0.1)" strokeWidth="0.5" fill="none"/>
-            <path d="M120,130 L200,125 L270,130" stroke="rgba(0,104,74,0.1)" strokeWidth="0.5" fill="none"/>
-            <path d="M100,180 L200,175 L285,180" stroke="rgba(0,104,74,0.1)" strokeWidth="0.5" fill="none"/>
-            <path d="M90,230 L200,225 L280,230" stroke="rgba(0,104,74,0.1)" strokeWidth="0.5" fill="none"/>
+              {/* SOLAR PANEL MARKERS */}
+              {CITIES.map((city, i) => {
+                const cx = (city.x / 100) * 550
+                const cy = (city.y / 100) * 620
+                const ps = city.size === 'lg' ? 22 : city.size === 'md' ? 16 : 12
 
-            {/* SOLAR PANEL MARKERS */}
-            {CITIES.map((city, i) => {
-              const cx = (city.x / 100) * 400
-              const cy = (city.y / 100) * 450
-              const panelSize = city.size === 'lg' ? 12 : city.size === 'md' ? 9 : 7
+                return (
+                  <PanelSVG key={city.name} cx={cx} cy={cy} ps={ps} city={city} index={i} />
+                )
+              })}
+            </svg>
+          </div>
 
-              return (
-                <g key={city.name} filter="url(#glow)">
-                  {/* Glow circle */}
-                  <circle cx={cx} cy={cy} r={panelSize * 2}
-                    fill="rgba(0,237,100,0.08)"
-                    className={styles.glowCircle}
-                    style={{ animationDelay: `${i * 0.25}s` }}/>
+          {/* LEGEND */}
+          <div className={styles.legend}>
+            <div className={styles.legendTitle}>Installation Scale</div>
+            <div className={styles.legendItems}>
+              <div className={styles.legendItem}>
+                <div className={`${styles.legendPanel} ${styles.lgPanel}`}/>
+                <span>Major Hub (5,000+)</span>
+              </div>
+              <div className={styles.legendItem}>
+                <div className={`${styles.legendPanel} ${styles.mdPanel}`}/>
+                <span>Growing City (2,000+)</span>
+              </div>
+              <div className={styles.legendItem}>
+                <div className={`${styles.legendPanel} ${styles.smPanel}`}/>
+                <span>Active Market (500+)</span>
+              </div>
+            </div>
+          </div>
 
-                  {/* Solar Panel */}
-                  <g transform={`translate(${cx - panelSize}, ${cy - panelSize * 0.8})`}>
-                    {/* Panel body */}
-                    <rect width={panelSize * 2} height={panelSize * 1.4}
-                      rx="1" fill="rgba(0,104,74,0.12)" stroke="#00684a" strokeWidth="0.8"/>
-                    {/* Grid lines horizontal */}
-                    <line x1="0" y1={panelSize * 0.47} x2={panelSize * 2} y2={panelSize * 0.47}
-                      stroke="#00684a" strokeWidth="0.5"/>
-                    <line x1="0" y1={panelSize * 0.93} x2={panelSize * 2} y2={panelSize * 0.93}
-                      stroke="#00684a" strokeWidth="0.5"/>
-                    {/* Grid lines vertical */}
-                    <line x1={panelSize * 0.67} y1="0" x2={panelSize * 0.67} y2={panelSize * 1.4}
-                      stroke="#00684a" strokeWidth="0.5"/>
-                    <line x1={panelSize * 1.33} y1="0" x2={panelSize * 1.33} y2={panelSize * 1.4}
-                      stroke="#00684a" strokeWidth="0.5"/>
-                    {/* Stand */}
-                    <line x1={panelSize} y1={panelSize * 1.4} x2={panelSize} y2={panelSize * 1.8}
-                      stroke="#00684a" strokeWidth="0.8"/>
-                    <line x1={panelSize * 0.5} y1={panelSize * 1.8} x2={panelSize * 1.5} y2={panelSize * 1.8}
-                      stroke="#00684a" strokeWidth="0.8"/>
-                  </g>
-
-                  {/* Pulse ring */}
-                  <circle cx={cx} cy={cy} r={panelSize * 1.5}
-                    fill="none" stroke="#00684a" strokeWidth="0.5"
-                    className={styles.pulseRing}
-                    style={{ animationDelay: `${i * 0.25}s` }}/>
-                </g>
-              )
-            })}
-          </svg>
-
-          {/* CITY TOOLTIPS */}
-          {CITIES.filter(c => c.size === 'lg').map((city, i) => (
-            <motion.div key={city.name} className={styles.cityLabel}
-              style={{ left: `${city.x}%`, top: `${city.y}%` }}
-              initial={{ opacity:0, y:10 }}
-              whileInView={{ opacity:1, y:0 }}
-              viewport={{ once:true }}
-              transition={{ delay: 0.8 + i * 0.15 }}>
-              {city.name}
-            </motion.div>
-          ))}
-
-          <div className={styles.mapGlow}/>
         </motion.div>
-
-        {/* LEGEND */}
-        <motion.div className={styles.legend}
-          initial={{ opacity:0 }}
-          whileInView={{ opacity:1 }}
-          viewport={{ once:true }}
-          transition={{ delay:0.5 }}>
-          <div className={styles.legendItem}>
-            <div className={styles.legendDotLg}/>
-            <span>Major Hub (5000+ installs)</span>
-          </div>
-          <div className={styles.legendItem}>
-            <div className={styles.legendDotMd}/>
-            <span>Growing City (2000+ installs)</span>
-          </div>
-          <div className={styles.legendItem}>
-            <div className={styles.legendDotSm}/>
-            <span>Active Market (500+ installs)</span>
-          </div>
-        </motion.div>
-
       </div>
     </section>
+  )
+}
+
+/* Solar Panel SVG Component */
+function PanelSVG({ cx, cy, ps, city, index }) {
+  const [hovered, setHovered] = useState(false)
+
+  return (
+    <g
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{ cursor: 'pointer' }}>
+
+      {/* Glow pulse circle */}
+      <circle cx={cx} cy={cy} r={ps * 1.8}
+        fill={hovered ? 'rgba(0,200,83,0.15)' : 'rgba(0,237,100,0.08)'}
+        className={styles.pulseCircle}
+        style={{ animationDelay: `${index * 0.25}s` }}/>
+
+      {/* Panel body */}
+      <rect
+        x={cx - ps} y={cy - ps * 0.65}
+        width={ps * 2} height={ps * 1.3}
+        rx="1.5"
+        fill={hovered ? 'rgba(0,104,74,0.2)' : 'rgba(0,104,74,0.1)'}
+        stroke={hovered ? '#00c853' : '#00684a'}
+        strokeWidth="1"
+        style={{ transition: 'all 0.2s', filter: hovered ? 'drop-shadow(0 0 4px rgba(0,200,83,0.6))' : 'none' }}
+      />
+
+      {/* Horizontal lines */}
+      <line x1={cx - ps} y1={cy - ps * 0.22} x2={cx + ps} y2={cy - ps * 0.22}
+        stroke={hovered ? '#00c853' : '#00684a'} strokeWidth="0.6"/>
+      <line x1={cx - ps} y1={cy + ps * 0.22} x2={cx + ps} y2={cy + ps * 0.22}
+        stroke={hovered ? '#00c853' : '#00684a'} strokeWidth="0.6"/>
+
+      {/* Vertical lines */}
+      <line x1={cx - ps * 0.33} y1={cy - ps * 0.65} x2={cx - ps * 0.33} y2={cy + ps * 0.65}
+        stroke={hovered ? '#00c853' : '#00684a'} strokeWidth="0.6"/>
+      <line x1={cx + ps * 0.33} y1={cy - ps * 0.65} x2={cx + ps * 0.33} y2={cy + ps * 0.65}
+        stroke={hovered ? '#00c853' : '#00684a'} strokeWidth="0.6"/>
+
+      {/* Stand */}
+      <line x1={cx} y1={cy + ps * 0.65} x2={cx} y2={cy + ps * 1.1}
+        stroke={hovered ? '#00c853' : '#00684a'} strokeWidth="1"/>
+      <line x1={cx - ps * 0.5} y1={cy + ps * 1.1} x2={cx + ps * 0.5} y2={cy + ps * 1.1}
+        stroke={hovered ? '#00c853' : '#00684a'} strokeWidth="1"/>
+
+      {/* Pulse ring */}
+      <circle cx={cx} cy={cy} r={ps * 1.4}
+        fill="none" stroke="#00684a" strokeWidth="0.6"
+        className={styles.pulseRing}
+        style={{ animationDelay: `${index * 0.25}s` }}/>
+
+      {/* Tooltip on hover */}
+      {hovered && (
+        <g>
+          <rect x={cx - 35} y={cy - ps * 2.8} width="70" height="32"
+            rx="6" fill="white" stroke="rgba(0,104,74,0.3)" strokeWidth="1"
+            style={{ filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.1))' }}/>
+          <text x={cx} y={cy - ps * 2.8 + 12}
+            textAnchor="middle" fontSize="8" fontWeight="700" fill="#00684a" fontFamily="Space Grotesk">
+            {city.name}
+          </text>
+          <text x={cx} y={cy - ps * 2.8 + 24}
+            textAnchor="middle" fontSize="7" fill="#666" fontFamily="Inter">
+            {city.installs} installs
+          </text>
+          {/* Arrow */}
+          <polygon
+            points={`${cx - 5},${cy - ps * 1.6} ${cx + 5},${cy - ps * 1.6} ${cx},${cy - ps * 1.4}`}
+            fill="white" stroke="rgba(0,104,74,0.3)" strokeWidth="0.5"/>
+        </g>
+      )}
+    </g>
   )
 }
