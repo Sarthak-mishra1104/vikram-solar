@@ -269,3 +269,23 @@ iframe {
     }
   }
 }
+/* ── MOBILE SCROLL FIX ── */
+html {
+  overflow-x: hidden;
+}
+body {
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+iframe {
+  touch-action: pan-x pan-y;
+}
+@media(max-width: 768px) {
+  iframe {
+    pointer-events: none !important;
+    touch-action: none !important;
+  }
+  * {
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+  }
+}

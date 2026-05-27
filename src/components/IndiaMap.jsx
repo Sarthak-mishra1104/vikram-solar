@@ -108,14 +108,15 @@ export default function IndiaMap() {
           {/* RIGHT — MAP */}
           <div className={styles.mapWrap}>
             <iframe
-              key={activeState}
-              src={mapSrc}
-              className={styles.mapFrame}
-              allowFullScreen=""
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              title={`Solar installations in ${activeState}`}
-            />
+  key={activeState}
+  src={mapSrc}
+  className={styles.mapFrame}
+  allowFullScreen=""
+  loading="lazy"
+  referrerPolicy="no-referrer-when-downgrade"
+  title={`Solar installations in ${activeState}`}
+  style={{ pointerEvents: 'auto', touchAction: 'none' }}
+/>
             <div className={styles.mapBadge}>
               <span className={styles.mapBadgeDot}/>
               Solar installations in {activeState}
