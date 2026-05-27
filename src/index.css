@@ -206,3 +206,11 @@ body {
 /* ── RESPONSIVE ──────────────────────────────────── */
 @media(max-width:768px) { .section{padding:56px 20px} }
 @media(max-width:640px) { .cards-grid{grid-template-columns:1fr} }
+/* Fix mobile scroll */
+html, body {
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+* {
+  -webkit-tap-highlight-color: transparent;
+}

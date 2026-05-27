@@ -92,7 +92,7 @@ function getFallback(msg) {
 export default function Assistant() {
   const [messages, setMessages] = useState([{
     role: 'assistant',
-    content: `Namaste! 🙏 Main Vikram hoon, aapka personal solar energy advisor!\n\nMain aapki help kar sakta hoon:\n• Solar savings calculate karna\n• Government subsidies samajhna (up to ₹78,000!)\n• Sahi panel choose karna\n• EMI aur financing options\n• Net metering aur maintenance\n\nHindi, English, ya Hinglish — kisi bhi language mein poochho! 🌞\n\nAapka monthly electricity bill kitna hai? Main turant bata doonga kitna bachega solar se! 💰`,
+    content: `Namaste! 🙏 Main SolarSync AI hoon, aapka personal solar energy advisor!\n\nMain aapki help kar sakta hoon:\n• Solar savings calculate karna\n• Government subsidies samajhna (up to ₹78,000!)\n• Sahi panel choose karna\n• EMI aur financing options\n• Net metering aur maintenance\n\nHindi, English, ya Hinglish — kisi bhi language mein poochho! 🌞\n\nAapka monthly electricity bill kitna hai? Main turant bata doonga kitna bachega solar se! 💰`,
   }])
   const [input, setInput] = useState('')
   const [typing, setTyping] = useState(false)
