@@ -1,129 +1,166 @@
-import { useState } from 'react'
-import { motion } from 'framer-motion'
-import { useCounter } from '../hooks/useCounter'
-import styles from './IndiaMap.module.css'
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import styles from "./IndiaMap.module.css";
+
+const sections = [1, 2, 3, 4, 5, 6];
 
 const STATES = [
-  'Delhi-NCR', 'Uttar Pradesh', 'Punjab', 'Karnataka',
-  'Telangana', 'Gujarat', 'Madhya Pradesh', 'Maharashtra',
-  'Rajasthan', 'Tamil Nadu', 'Kerala', 'West Bengal'
-]
-
-const STATS = [
-  { val: 4500, suffix: '+',   label: 'Installations' },
-  { val: 75,   suffix: '+',   label: 'Cities'        },
-  { val: 22,   suffix: '',    label: 'States'        },
-  { val: 3,    suffix: 'GW+', label: 'Capacity'      },
-]
-
-function StatCount({ val, suffix, label }) {
-  const { count, ref } = useCounter(val, 2000)
-  return (
-    <div ref={ref} className={styles.stat}>
-      <div className={styles.statVal}>{count}{suffix}</div>
-      <div className={styles.statLabel}>{label}</div>
-    </div>
-  )
-}
+  "Delhi-NCR",
+  "Uttar Pradesh",
+  "Punjab",
+  "Karnataka",
+  "Telangana",
+  "Gujarat",
+  "Madhya Pradesh",
+  "Maharashtra",
+];
 
 export default function IndiaMap() {
-  const [activeState, setActiveState] = useState('Delhi-NCR')
+  const [activeState, setActiveState] = useState("Delhi-NCR");
+  const [activeDot, setActiveDot] = useState(0);
 
-  const STATE_COORDS = {
-    'Delhi-NCR':       { lat: 28.6139, lng: 77.2090, zoom: 10 },
-    'Uttar Pradesh':   { lat: 26.8467, lng: 80.9462, zoom: 7  },
-    'Punjab':          { lat: 31.1471, lng: 75.3412, zoom: 7  },
-    'Karnataka':       { lat: 15.3173, lng: 75.7139, zoom: 7  },
-    'Telangana':       { lat: 18.1124, lng: 79.0193, zoom: 7  },
-    'Gujarat':         { lat: 22.2587, lng: 71.1924, zoom: 7  },
-    'Madhya Pradesh':  { lat: 22.9734, lng: 78.6569, zoom: 7  },
-    'Maharashtra':     { lat: 19.7515, lng: 75.7139, zoom: 7  },
-    'Rajasthan':       { lat: 27.0238, lng: 74.2179, zoom: 7  },
-    'Tamil Nadu':      { lat: 11.1271, lng: 78.6569, zoom: 7  },
-    'Kerala':          { lat: 10.8505, lng: 76.2711, zoom: 7  },
-    'West Bengal':     { lat: 22.9868, lng: 87.8550, zoom: 7  },
-  }
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      const height = window.innerHeight;
 
-  const current = STATE_COORDS[activeState]
-  const mapSrc = `https://maps.google.com/maps?q=${current.lat},${current.lng}&z=${current.zoom}&output=embed&t=m`
+      const index = Math.floor(scrollY / height);
+      setActiveDot(index);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const mapSrc = `https://maps.google.com/maps?q=28.6139,77.2090&z=5&output=embed&t=m`;
 
   return (
-    <section className={styles.section}>
-      <div className={styles.inner}>
+    <div className={styles.pageWrapper}>
+      {/* LEFT SCROLL DOTS */}
+      <div className={styles.scrollDots}>
+        {sections.map((_, i) => (
+          <div
+            key={i}
+            className={`${styles.scrollDot} ${
+              activeDot === i ? styles.activeDot : ""
+            }`}
+          />
+        ))}
+      </div>
 
-        <motion.div className={styles.head}
-          initial={{ opacity:0, y:40 }}
-          whileInView={{ opacity:1, y:0 }}
-          viewport={{ once:true, amount:0.3 }}
-          transition={{ duration:0.7 }}>
-          <div className="section-label">Pan India Presence</div>
-          <h2 className={styles.title}>SolarSync Installations<br />Across India</h2>
-          <p className={styles.sub}>Over 4,500 high quality solar rooftop installations across 75+ cities, ranging from 1kW to 100kW.</p>
+      {/* MAP SECTION */}
+      <section className={styles.section}>
+        <motion.div
+          className={styles.heading}
+          initial={{ opacity: 0, y: 80, scale: 0.96 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{
+            duration: 1,
+            ease: [0.22, 1, 0.36, 1],
+          }}
+          viewport={{ once: true }}
+        >
+          <div className={styles.miniTitle}>PAN INDIA PRESENCE</div>
+
+          <h2 className={styles.title}>zunsolars Across India</h2>
+
+          <div className={styles.underline}></div>
         </motion.div>
 
-        {/* STATS */}
-        <motion.div className={styles.statsRow}
-          initial={{ opacity:0, y:30 }}
-          whileInView={{ opacity:1, y:0 }}
-          viewport={{ once:true }}
-          transition={{ duration:0.6, delay:0.2 }}>
-          {STATS.map(s => <StatCount key={s.label} {...s} />)}
-        </motion.div>
+        <motion.div
+          className={styles.mapCard}
+          initial={{ opacity: 0, y: 100 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{
+            duration: 1,
+            ease: [0.22, 1, 0.36, 1],
+          }}
+          viewport={{ once: true }}
+        >
+          {/* LEFT PANEL */}
+          <div className={styles.overlayPanel}>
+            <h3 className={styles.overlayTitle}>
+              Over 4500+ high quality solar rooftop installations across 75+
+              cities, ranging from 1kW to 100kW.
+            </h3>
 
-        {/* MAP SECTION */}
-        <motion.div className={styles.mapSection}
-          initial={{ opacity:0, y:30 }}
-          whileInView={{ opacity:1, y:0 }}
-          viewport={{ once:true, amount:0.2 }}
-          transition={{ duration:0.8, delay:0.3 }}>
-
-          {/* LEFT — STATE SELECTOR */}
-          <div className={styles.statePanel}>
-            <div className={styles.statePanelTitle}>Select State</div>
-            <div className={styles.stateGrid}>
-              {STATES.map(state => (
+            <div className={styles.statesGrid}>
+              {STATES.map((state) => (
                 <button
                   key={state}
-                  className={`${styles.stateBtn} ${activeState === state ? styles.stateBtnActive : ''}`}
-                  onClick={() => setActiveState(state)}>
+                  onClick={() => setActiveState(state)}
+                  className={`${styles.stateBtn} ${
+                    activeState === state ? styles.stateBtnActive : ""
+                  }`}
+                >
                   {state}
                 </button>
               ))}
             </div>
-            <div className={styles.stateInfo}>
-              <div className={styles.stateInfoTitle}>{activeState}</div>
-              <div className={styles.stateInfoStats}>
-                <div className={styles.stateInfoStat}>
-                  <div className={styles.stateInfoVal}>500+</div>
-                  <div className={styles.stateInfoLabel}>Installations</div>
-                </div>
-                <div className={styles.stateInfoStat}>
-                  <div className={styles.stateInfoVal}>10+</div>
-                  <div className={styles.stateInfoLabel}>Cities</div>
-                </div>
-              </div>
-            </div>
           </div>
 
-          {/* RIGHT — MAP */}
-          <div className={styles.mapWrap}>
-            <iframe
-              key={activeState}
-              src={mapSrc}
-              className={styles.mapFrame}
-              allowFullScreen=""
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              title={`Solar installations in ${activeState}`}
-            />
-            <div className={styles.mapBadge}>
-              <span className={styles.mapBadgeDot}/>
-              Solar installations in {activeState}
-            </div>
-          </div>
-
+          {/* MAP */}
+          <iframe
+            src={mapSrc}
+            className={styles.map}
+            loading="lazy"
+            title="India Solar Map"
+          />
         </motion.div>
-      </div>
-    </section>
-  )
+      </section>
+
+      {/* SUCCESS STORIES */}
+      <section className={styles.storySection}>
+        <motion.div
+          className={styles.heading}
+          initial={{ opacity: 0, y: 80 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{
+            duration: 1,
+            ease: [0.22, 1, 0.36, 1],
+          }}
+          viewport={{ once: true }}
+        >
+          <div className={styles.miniTitle}>SUCCESS STORIES</div>
+
+          <h2 className={styles.title}>Solar Success Stories</h2>
+
+          <div className={styles.underline}></div>
+        </motion.div>
+
+        <motion.div
+          className={styles.cardsWrap}
+          animate={{ x: [0, -20, 0] }}
+          transition={{
+            duration: 6,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        >
+          {/* CARD */}
+          <div className={styles.storyCard}>
+            <div className={styles.quote}>“</div>
+
+            <p className={styles.storyText}>
+              They helped us with installation, subsidy and net metering. Our
+              solar installation is helping us save a lot on electricity bills.
+            </p>
+
+            <div className={styles.user}>Mr. Sunil Kumar</div>
+
+            <div className={styles.location}>Lucknow</div>
+          </div>
+
+          {/* IMAGE CARD */}
+          <div className={styles.storyImageCard}>
+            <img
+              src="https://images.unsplash.com/photo-1509391366360-2e959784a276?q=80&w=1200&auto=format&fit=crop"
+              alt=""
+            />
+          </div>
+        </motion.div>
+      </section>
+    </div>
+  );
 }
