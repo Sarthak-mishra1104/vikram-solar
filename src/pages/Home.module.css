@@ -341,5 +341,9 @@
 @media(max-width: 768px) {
   .sunRing1,.sunRing2,.sunRing3 { display: none; }
   .sunRay { display: none; }
-  .houseImg { animation: none; }
+  .houseImg { animation: none !important; }
+  .sunInner { animation: none !important; }
+  .pulseCircle { animation: none !important; }
+  .pulseRing { animation: none !important; }
+  .floatCard1,.floatCard2,.floatCard3 { display: none; }
 }

@@ -236,3 +236,36 @@ iframe {
     -webkit-overflow-scrolling: touch;
   }
 }
+/* ── MOBILE PERFORMANCE FIX ── */
+@media (max-width: 768px) {
+  * {
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-y;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+  }
+
+  body {
+    overflow-x: hidden;
+    overscroll-behavior-y: contain;
+  }
+
+  /* Disable heavy animations on mobile */
+  .bg-grid,
+  .bg-blob1,
+  .bg-blob2 {
+    display: none !important;
+  }
+
+  /* Reduce all animations on mobile */
+  @media (prefers-reduced-motion: no-preference) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
