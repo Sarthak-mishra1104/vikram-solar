@@ -214,3 +214,25 @@ html, body {
 * {
   -webkit-tap-highlight-color: transparent;
 }
+/* Fix mobile scroll */
+html, body {
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+}
+
+iframe {
+  pointer-events: none;
+}
+
+@media(max-width: 768px) {
+  iframe {
+    pointer-events: none;
+    touch-action: none;
+  }
+  
+  .page {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
