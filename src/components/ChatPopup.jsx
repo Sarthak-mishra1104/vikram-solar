@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { MessageSquare, X, Send, Bot, Minimize2 } from 'lucide-react'
 import styles from './ChatPopup.module.css'
-
+import ChatPopup from './components/ChatPopup'
 const QUICK = [
   'Solar subsidy kitni milti hai?',
   'How much will I save?',
