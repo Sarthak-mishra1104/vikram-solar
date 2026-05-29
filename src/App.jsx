@@ -1,3 +1,4 @@
+import ChatPopup from './components/ChatPopup'
 import { useState } from 'react'
 import { AnimatePresence } from 'framer-motion'
 import { AuthProvider, useAuth } from './hooks/useAuth'
@@ -51,6 +52,7 @@ function AppContent() {
         <Footer showPage={showPage} />
       </div>
       <ToastContainer toasts={toasts} />
+      <ChatPopup />
     </ToastContext.Provider>
   )
 }
