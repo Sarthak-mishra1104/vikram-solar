@@ -29,9 +29,9 @@ export default function Calculator({ showPage }) {
   const handleFile = (e) => { const f=e.target.files?.[0]; if(f){setFileName(f.name);toast(`File uploaded: ${f.name}`)} }
   const handleDrop = (e) => { e.preventDefault(); const f=e.dataTransfer.files?.[0]; if(f){setFileName(f.name);toast(`File uploaded: ${f.name}`)} }
 
-  const calculate = () => {
+  const calculate = async () => {
     setLoading(true)
-    setTimeout(() => { const res = calculateSolar(form)
+    setTimeout( async() => { const res = calculateSolar(form)
     setResult(res)
     setLoading(false)
     toast('Calculation complete')
