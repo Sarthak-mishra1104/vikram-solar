@@ -19,36 +19,48 @@ export default function Contact() {
   const [form, setForm] = useState({name:'',phone:'',city:'',bill:'',interest:INTERESTS[0],msg:''})
   const [submitted, setSubmitted] = useState(false)
   const set = k => e => setForm(f=>({...f,[k]:e.target.value}))
-
-  const submit = async () => {
+const submit = async () => {
   if (!form.name.trim() || !form.phone.trim()) {
     toast('Please fill in your name and mobile number', 'warn')
     return
   }
+
   try {
-  await fetch(
- "https://solarsync-admin.vercel.app/api/test-lead",
-  {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      companyId: "vikram-solar",
-      name: form.name,
-      phone: form.phone,
-      city: form.city,
-      monthlyBill: Number(form.bill) || 0,
-      source: "SolarSync Website",
-      status: "New Lead", 
-    }),
-  }
-);  
+    const response = await fetch(
+      "https://solarsync-admin.vercel.app/api/test-lead",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          companyId: "vikram-solar",
+          name: form.name,
+          phone: form.phone,
+          city: form.city,
+          monthlyBill: Number(form.bill) || 0,
+          source: "SolarSync Website",
+          status: "New Lead",
+        }),
+      }
+    )
+
+    console.log("API STATUS:", response.status)
+
+    const data = await response.json()
+    console.log("API RESPONSE:", data)
+
+    if (!response.ok) {
+      throw new Error("Failed to save lead")
+    }
+
+    setSubmitted(true)
+    toast('Consultation booked successfully')
+
   } catch (e) {
-    console.error(e)
+    console.error("API ERROR:", e)
+    toast('Failed to submit request', 'warn')
   }
-  setSubmitted(true)
-  toast('Consultation booked successfully')
 }
   return (
     <motion.div initial={{opacity:0,y:16}} animate={{opacity:1,y:0}} transition={{duration:0.35}}>
