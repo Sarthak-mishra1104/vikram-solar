@@ -3,6 +3,8 @@ import { motion } from 'framer-motion'
 import { Phone, MessageSquare, MapPin, Home, CheckCircle } from 'lucide-react'
 import { useToast } from '../hooks/useToast'
 import styles from './Contact.module.css'
+import { db } from '../firebase'
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
 
 const QUICK = [
   { Icon:MessageSquare, bg:'rgba(37,211,102,0.1)', color:'#25D366', title:'WhatsApp', sub:'Chat with a solar expert instantly', action:'Opening WhatsApp...' },
@@ -18,11 +20,36 @@ export default function Contact() {
   const [submitted, setSubmitted] = useState(false)
   const set = k => e => setForm(f=>({...f,[k]:e.target.value}))
 
-  const submit = () => {
-    if(!form.name.trim()||!form.phone.trim()){ toast('Please fill in your name and mobile number','warn'); return }
-    setSubmitted(true); toast('Consultation booked successfully')
+  const submit = async () => {
+  if (!form.name.trim() || !form.phone.trim()) {
+    toast('Please fill in your name and mobile number', 'warn')
+    return
   }
-
+  try {
+  await fetch(
+ "https://solarsync-admin.vercel.app/api/test-lead",
+  {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      companyId: "vikram-solar",
+      name: form.name,
+      phone: form.phone,
+      city: form.city,
+      monthlyBill: Number(form.bill) || 0,
+      source: "SolarSync Website",
+      status: "New Lead", 
+    }),
+  }
+);  
+  } catch (e) {
+    console.error(e)
+  }
+  setSubmitted(true)
+  toast('Consultation booked successfully')
+}
   return (
     <motion.div initial={{opacity:0,y:16}} animate={{opacity:1,y:0}} transition={{duration:0.35}}>
       <div className={styles.pageHeader}>

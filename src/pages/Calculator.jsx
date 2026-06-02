@@ -4,6 +4,8 @@ import { Upload, Zap, Sun, Battery, TrendingUp, IndianRupee, Leaf } from 'lucide
 import { calculateSolar, APPLIANCE_LOAD } from '../utils/solar'
 import { useToast } from '../hooks/useToast'
 import styles from './Calculator.module.css'
+import { db } from '../firebase'
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
 
 const STATES = [
   'Maharashtra — MSEDCL','Delhi — BSES / Tata Power','Karnataka — BESCOM',
@@ -29,7 +31,24 @@ export default function Calculator({ showPage }) {
 
   const calculate = () => {
     setLoading(true)
-    setTimeout(() => { setResult(calculateSolar(form)); setLoading(false); toast('Calculation complete') }, 1500)
+    setTimeout(() => { const res = calculateSolar(form)
+    setResult(res)
+    setLoading(false)
+    toast('Calculation complete')
+    // Save to Firebase
+    try {
+      await addDoc(collection(db, 'calculations'), {
+        ...form,
+        result: res,
+        source: 'Calculator',
+        status: 'New Lead',
+        createdAt: serverTimestamp(),
+        companyId: 'solarsync',
+      })
+    } catch (e) {
+      console.error(e)
+    }
+  }, 1500)
   }
 
   return (
