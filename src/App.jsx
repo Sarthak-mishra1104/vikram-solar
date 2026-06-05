@@ -1,7 +1,7 @@
+import { AuthProvider, useAuth } from './hooks/useAuth'
 import ChatPopup from './components/ChatPopup'
 import { useState } from 'react'
 import { AnimatePresence } from 'framer-motion'
-import { AuthProvider, useAuth } from './hooks/useAuth'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import BgOrbs from './components/BgOrbs'
@@ -13,10 +13,15 @@ import Assistant from './pages/Assistant'
 import Contact from './pages/Contact'
 import Login from './pages/Login'
 import { ToastContext } from './hooks/useToast'
+import { useEffect } from "react";
+import ProfileComplete from "./pages/ProfileComplete";
 
 function AppContent() {
+  const { user, loading } = useAuth();
   const [page, setPage] = useState('home')
   const [toasts, setToasts] = useState([])
+  const [customer, setCustomer] = useState(null);
+const [checkingProfile, setCheckingProfile] = useState(true);
 
   const showPage = (id) => {
     setPage(id)
@@ -28,6 +33,34 @@ function AppContent() {
     setToasts(prev => [...prev, { id, msg, type }])
     setTimeout(() => setToasts(prev => prev.filter(t => t.id !== id)), 3500)
   }
+useEffect(() => {
+async function loadCustomer() {
+if (!user) return;
+
+
+try {
+  const response = await fetch(
+    `https://solarsync-admin.vercel.app/api/customer?email=${user.email}`
+  );
+
+  const data = await response.json();
+  console.log("CUSTOMER API:", data);
+
+  if (data.success) {
+    console.log("CUSTOMER FOUND:", data.customer);
+    setCustomer(data.customer);
+  }
+} catch (error) {
+  console.error(error);
+}
+
+setCheckingProfile(false);
+
+
+}
+
+loadCustomer();
+}, [user]);
 
   const pages = {
     home: Home,
@@ -38,6 +71,30 @@ function AppContent() {
     login: Login,
   }
   const PageComponent = pages[page] || Home
+
+  if (loading) {
+  return null;
+}
+
+if (!user) {
+  return (
+    <ToastContext.Provider value={addToast}>
+      <Login showPage={showPage} />
+      <ToastContainer toasts={toasts} />
+    </ToastContext.Provider>
+  );
+}
+if (checkingProfile) {
+return null;
+}
+
+if (
+customer &&
+customer.profileCompleted === false
+) {
+return <ProfileComplete />;
+}
+
 
   return (
     <ToastContext.Provider value={addToast}>

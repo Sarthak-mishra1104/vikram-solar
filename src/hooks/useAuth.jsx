@@ -12,47 +12,50 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const unsub = onAuthStateChanged(auth, (u) => {
-      setUser(u);
-      setLoading(false);
-    });
+useEffect(() => {
+  const unsub = onAuthStateChanged(auth, (u) => {
+    console.log("AUTH USER:", u);
 
-    return () => unsub();
-  }, []);
-const result = await signInWithPopup(
-  auth,
-  googleProvider
-);
+    setUser(u);
+    setLoading(false);
+  });
 
-const user = result.user;
+  return () => unsub();
+}, []);
 
-try {
-  await fetch(
-    "https://solarsync-admin.vercel.app/api/customer",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: user.displayName,
-        email: user.email,
-        photoURL: user.photoURL,
-      }),
-    }
-  );
-} catch (error) {
-  console.error(
-    "Customer save failed:",
-    error
-  );
-}
 
-return result;
   const loginWithGoogle = async () => {
     try {
-      
+      const result = await signInWithPopup(
+        auth,
+        googleProvider
+      );
+
+      const user = result.user;
+
+      try {
+        await fetch(
+          "https://solarsync-admin.vercel.app/api/customer",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              name: user.displayName,
+              email: user.email,
+              photoURL: user.photoURL,
+            }),
+          }
+        );
+      } catch (error) {
+        console.error(
+          "Customer save failed:",
+          error
+        );
+      }
+
+      return result;
     } catch (error) {
       console.error(
         "Google Login Error:",
