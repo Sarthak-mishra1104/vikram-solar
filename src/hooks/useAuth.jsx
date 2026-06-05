@@ -16,7 +16,38 @@ export function AuthProvider({ children }) {
     return () => unsub()
   }, [])
 
-  const loginWithGoogle = () => signInWithPopup(auth, googleProvider)
+const loginWithGoogle = async () => {
+  const result = await signInWithPopup(
+    auth,
+    googleProvider
+  );
+
+  const user = result.user;
+
+  try {
+    await fetch(
+      "https://solarsync-admin.vercel.app/api/customer",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: user.displayName,
+          email: user.email,
+          photoURL: user.photoURL,
+        }),
+      }
+    );
+  } catch (error) {
+    console.error(
+      "Customer save failed:",
+      error
+    );
+  }
+
+  return result;
+};
   const logout = () => signOut(auth)
 
   return (
